@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Search Algorithms — IT426</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --surface2: #f0f2f5;
+    --border: #e2e6ed;
+    --accent: #2c5fad;
+    --accent-light: #dde8f8;
+    --accent2: #2a9d7c;
+    --accent2-light: #d6f2ea;
+    --accent3: #c97a1e;
+    --accent3-light: #fdefd8;
+    --text: #1a2035;
+    --text-muted: #6b7694;
+    --text-dim: #a0a8bc;
+    --success: #2a9d5c;
+    --success-light: #d6f2e4;
+    --error: #d94f3d;
+    --error-light: #fde8e6;
+    --radius: 14px;
+    --radius-sm: 9px;
+    --shadow: 0 2px 12px rgba(30,50,100,0.07);
+    --shadow-md: 0 4px 24px rgba(30,50,100,0.11);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(255,255,255,0.93); backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; height: 62px;
+    box-shadow: 0 1px 8px rgba(30,50,100,0.06);
+  }
+  .nav-left { display: flex; align-items: center; gap: 14px; }
+  .nav-right { display: flex; align-items: center; }
+  .nav-logo { height: 40px; width: auto; display: block; }
+  .nav-divider { width: 1px; height: 26px; background: var(--border); }
+  .nav-brand { font-size: .82rem; color: var(--text-muted); }
+  .nav-brand span { color: var(--accent); font-weight: 700; }
+
+  /* HERO TABS */
+  .hero-tabs { display: flex; gap: 8px; justify-content: center; margin-top: 28px; }
+  .hero-tab {
+    padding: 10px 28px; border-radius: 8px; border: 1.5px solid var(--border);
+    background: var(--surface); color: var(--text-muted);
+    font-family: inherit; font-size: .9rem; cursor: pointer;
+    transition: all .18s; font-weight: 600;
+  }
+  .hero-tab:hover { border-color: var(--accent); color: var(--accent); }
+  .hero-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  /* SECTIONS */
+  .section { display: none; padding-top: 62px; min-height: 100vh; }
+  .section.active { display: block; }
+
+  /* HERO */
+  .hero {
+    padding: 64px 2rem 52px; text-align: center;
+    background: linear-gradient(155deg, #eef2fb 0%, #f5f6f8 65%);
+    border-bottom: 1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute; top: -60px; right: -80px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(44,95,173,.09) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: var(--accent-light); border: 1px solid rgba(44,95,173,.2);
+    border-radius: 100px; padding: 5px 14px; font-size: .78rem;
+    color: var(--accent); margin-bottom: 22px; font-weight: 600; letter-spacing: .04em;
+  }
+  .hero-badge::before { content: '●'; animation: pulse 2.5s infinite; font-size: .6rem; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.25} }
+  .hero h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
+  .hero h1 em { font-style: normal; color: var(--accent); }
+  .hero p { font-size: 1rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; line-height: 1.75; }
+
+  /* CONTAINER */
+  .container { max-width: 920px; margin: 0 auto; padding: 48px 2rem 80px; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 26px 30px; margin-bottom: 18px;
+    box-shadow: var(--shadow); transition: box-shadow .2s, border-color .2s;
+    animation: fadeUp .4s ease both;
+  }
+  .card:hover { box-shadow: var(--shadow-md); border-color: rgba(44,95,173,.22); }
+  .card:nth-child(1){animation-delay:.04s} .card:nth-child(2){animation-delay:.09s}
+  .card:nth-child(3){animation-delay:.14s} .card:nth-child(4){animation-delay:.19s}
+  .card:nth-child(5){animation-delay:.24s}
+  @keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:none} }
+
+  .card-header {
+    display: flex; align-items: flex-start; gap: 12px;
+    margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border);
+  }
+  .card-icon {
+    width: 10px; height: 10px; border-radius: 50%;
+    flex-shrink: 0; margin-top: 6px;
+  }
+  .card-icon.blue { background: var(--accent); }
+  .card-icon.green { background: var(--accent2); }
+  .card-icon.orange { background: var(--accent3); }
+  .card h2 { font-size: 1.07rem; font-weight: 600; }
+  .card h3 { font-size: .87rem; font-weight: 400; color: var(--text-muted); margin-top: 2px; }
+
+  /* DEF BOX */
+  .def-box {
+    background: var(--accent-light); border-left: 3px solid var(--accent);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 14px 18px; margin: 14px 0;
+    font-size: .93rem; line-height: 1.8;
+  }
+
+  /* TAGS */
+  .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+  .tag { padding: 3px 11px; border-radius: 100px; font-size: .75rem; font-weight: 600; border: 1px solid; }
+  .tag.blue { background: var(--accent-light); border-color: rgba(44,95,173,.25); color: var(--accent); }
+  .tag.green { background: var(--accent2-light); border-color: rgba(42,157,124,.25); color: var(--accent2); }
+  .tag.orange { background: var(--accent3-light); border-color: rgba(201,122,30,.25); color: var(--accent3); }
+
+  /* LIST */
+  .check-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .check-list li { display: flex; align-items: flex-start; gap: 11px; font-size: .93rem; line-height: 1.65; }
+  .check-list li::before { content: '→'; color: var(--accent); flex-shrink: 0; font-weight: 700; margin-top: 1px; }
+
+  /* CODE */
+  .code-block {
+    background: #f8f9fc; border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 18px 22px;
+    font-family: 'Fira Code', monospace; font-size: .82rem;
+    line-height: 1.9; margin-top: 14px; overflow-x: auto;
+  }
+  .code-block .kw { color: var(--accent); font-weight: 600; }
+  .code-block .fn { color: var(--accent2); font-weight: 600; }
+  .code-block .cm { color: var(--text-dim); font-style: italic; }
+  .code-block .vr { color: var(--accent3); }
+
+  /* COMPARE */
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .compare-col { background: var(--surface2); border-radius: var(--radius-sm); padding: 14px 18px; border: 1px solid var(--border); }
+  .compare-col h4 { font-size: .78rem; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .06em; }
+  .compare-col.good h4 { color: var(--success); }
+  .compare-col.bad h4 { color: var(--error); }
+  .compare-col ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .compare-col li { font-size: .85rem; color: var(--text-muted); display: flex; gap: 8px; align-items: flex-start; }
+  .compare-col.good li::before { content: '✓'; color: var(--success); flex-shrink:0; font-weight:700; }
+  .compare-col.bad li::before { content: '✗'; color: var(--error); flex-shrink:0; font-weight:700; }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: .67rem; font-weight: 700; letter-spacing: .14em;
+    color: var(--text-dim); text-transform: uppercase;
+    margin-bottom: 18px; padding-bottom: 9px; border-bottom: 1px solid var(--border);
+  }
+
+  /* QUIZ */
+  #quiz-section { background: var(--bg); }
+  .quiz-progress-bar { height: 4px; background: var(--border); border-radius: 100px; max-width: 680px; margin: 0 auto 38px; }
+  .quiz-progress-fill { height: 100%; background: var(--accent); border-radius: 100px; transition: width .4s ease; }
+  .quiz-question-card { max-width: 680px; margin: 0 auto 60px; padding: 0 2rem; }
+  .question-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .question-num { font-size: .74rem; font-weight: 700; letter-spacing: .1em; color: var(--accent); text-transform: uppercase; }
+  .question-type { font-size: .72rem; padding: 3px 10px; border-radius: 100px; background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); font-weight: 500; }
+  .question-text { font-size: 1.05rem; font-weight: 600; line-height: 1.6; margin-bottom: 22px; }
+  .options { display: flex; flex-direction: column; gap: 9px; margin-bottom: 22px; }
+  .option {
+    padding: 13px 18px; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border); background: var(--surface);
+    cursor: pointer; font-family: inherit; font-size: .93rem; color: var(--text);
+    text-align: left; transition: all .15s; display: flex; align-items: center; gap: 13px;
+    box-shadow: 0 1px 4px rgba(30,50,100,0.05);
+  }
+  .option-letter {
+    width: 28px; height: 28px; border-radius: 50%;
+    background: var(--surface2); border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: .77rem; font-weight: 700; color: var(--text-muted); flex-shrink: 0;
+  }
+  .option:hover:not(.disabled) { border-color: var(--accent); background: var(--accent-light); }
+  .option:hover:not(.disabled) .option-letter { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+  .option.correct { border-color: var(--success)!important; background: var(--success-light)!important; }
+  .option.correct .option-letter { background: rgba(42,157,92,.18)!important; color: var(--success)!important; border-color: var(--success)!important; }
+  .option.wrong { border-color: var(--error)!important; background: var(--error-light)!important; }
+  .option.wrong .option-letter { background: rgba(217,79,61,.14)!important; color: var(--error)!important; border-color: var(--error)!important; }
+  .option.disabled { cursor: default; }
+  .explanation {
+    background: #fffbf0; border: 1px solid #f0d88a; border-radius: var(--radius-sm);
+    padding: 14px 18px; font-size: .88rem; line-height: 1.7; color: var(--text-muted);
+    margin-bottom: 20px; display: none;
+  }
+  .explanation.show { display: block; }
+  .explanation strong { color: var(--text); }
+  .quiz-btn { width: 100%; padding: 13px; border-radius: var(--radius-sm); border: none; font-family: inherit; font-size: .97rem; font-weight: 600; cursor: pointer; transition: all .18s; }
+  .quiz-btn.primary { background: var(--accent); color: #fff; }
+  .quiz-btn.primary:hover { background: #3a6ec0; box-shadow: 0 4px 14px rgba(44,95,173,.28); }
+  .quiz-btn.primary:disabled { opacity: .35; cursor: default; box-shadow: none; }
+
+  /* RESULTS */
+  .results-card {
+    max-width: 500px; margin: 32px auto 80px; padding: 44px 36px; text-align: center;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); box-shadow: var(--shadow-md);
+  }
+  .score-ring { width: 116px; height: 116px; margin: 0 auto 26px; position: relative; }
+  .score-ring svg { transform: rotate(-90deg); }
+  .score-ring .ring-bg { fill: none; stroke: var(--border); stroke-width: 8; }
+  .score-ring .ring-fill { fill: none; stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+  .score-num { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); font-size: 1.7rem; font-weight: 700; }
+  .results-card h3 { font-size: 1.28rem; margin-bottom: 7px; }
+  .results-card > p { color: var(--text-muted); margin-bottom: 26px; font-size: .92rem; line-height: 1.6; }
+  .results-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 24px; }
+  .result-stat { background: var(--surface2); border-radius: 9px; padding: 14px 8px; border: 1px solid var(--border); }
+  .result-stat .num { font-size: 1.35rem; font-weight: 700; margin-bottom: 3px; }
+  .result-stat .lbl { font-size: .71rem; color: var(--text-muted); font-weight: 500; }
+  .restart-btn {
+    width: 100%; padding: 12px; border-radius: var(--radius-sm);
+    background: var(--surface2); border: 1.5px solid var(--border);
+    color: var(--text-muted); font-family: inherit; font-size: .92rem;
+    font-weight: 600; cursor: pointer; transition: all .18s;
+  }
+  .restart-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 100px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-left">
+    <div class="nav-brand"><span>IT426</span> — Artificial Intelligence</div>
+  </div>
+  <div class="nav-right">
+    <img src="images/ksu.png" alt="KSU" class="nav-logo" onerror="this.style.display='none'">
+  </div>
+</nav>
+
+<!-- ══════════════════ SUMMARY ══════════════════ -->
+<div id="summary-section" class="section active">
+  <div class="hero">
+    <div class="hero-badge">First Semester 1448 — Chapter 4</div>
+    <h1>Local Search <em>Algorithms</em></h1>
+    <p>A focused review of local search methods and their applications in optimization — IT426 Artificial Intelligence</p>
+    <div class="hero-tabs">
+      <button class="hero-tab active" onclick="showSection('summary',this)">Summary</button>
+      <button class="hero-tab" onclick="showSection('quiz',this)">Quiz</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="section-label">Core Concept</div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon blue"></div>
+        <div>
+          <h2>What are Local Search Algorithms?</h2>
+          <h3>Heuristic methods for optimization and constraint satisfaction</h3>
+        </div>
+      </div>
+      <div class="def-box">
+        Local search algorithms are <strong>heuristic methods</strong> for solving complex optimization and constraint satisfaction problems by iteratively improving a single candidate solution — rather than systematically exploring the entire search space.
+      </div>
+      <p style="color:var(--text-muted);font-size:.9rem;margin-top:10px;line-height:1.75;">
+        The search is "local" because it explores only the <strong>immediate neighborhood</strong> of the current solution — not all possibilities.
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon green"></div>
+        <div><h2>Key Characteristics</h2></div>
+      </div>
+      <ul class="check-list">
+        <li>Operates on a <strong>single complete solution</strong> at any given time</li>
+        <li>Explores only the <strong>immediate neighborhood</strong> of the current state</li>
+        <li>Uses <strong>very little memory</strong> — no need to store the path</li>
+        <li>Well-suited for problems with an <strong>astronomically large search space</strong></li>
+        <li>Used when only the <strong>final configuration matters</strong>, not the path to reach it</li>
+      </ul>
+    </div>
+
+    <div class="section-label" style="margin-top:36px;">Real-World Examples</div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon orange"></div>
+        <div>
+          <h2>Arranging Furniture in a Room</h2>
+          <h3>Everyday optimization under constraints</h3>
+        </div>
+      </div>
+      <div class="def-box">
+        You want to arrange your bedroom furniture so the room feels open and comfortable. You try a layout, then shift the desk slightly — if it feels better, you keep it. You repeat until no small move improves things.
+      </div>
+      <ul class="check-list" style="margin-top:12px;">
+        <li><strong>State:</strong> the current position of every piece of furniture</li>
+        <li>You only care about the <strong>final arrangement</strong>, not how you got there</li>
+        <li>Millions of possible layouts — you can't try them all</li>
+        <li>You might settle on a "good enough" layout that isn't truly the best — a <strong>local maximum</strong></li>
+      </ul>
+      <div class="tags">
+        <span class="tag blue">State = furniture positions</span>
+        <span class="tag green">Huge search space</span>
+        <span class="tag orange">Path is irrelevant</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon blue"></div>
+        <div>
+          <h2>Planning a Weekly Study Schedule</h2>
+          <h3>Balancing multiple competing goals</h3>
+        </div>
+      </div>
+      <div class="def-box">
+        You need to fit 6 subjects into your week while avoiding clashes with classes, gym, and prayer times — and making sure harder subjects get studied when you're most focused.
+      </div>
+      <ul class="check-list" style="margin-top:12px;">
+        <li><strong>State:</strong> the full weekly schedule with all time slots assigned</li>
+        <li>Multiple <strong>conflicting goals:</strong> coverage, energy levels, no overlaps</li>
+        <li>You tweak one slot at a time — if the schedule improves, keep the change</li>
+        <li>Only the <strong>final schedule matters</strong>, not how many drafts you made</li>
+      </ul>
+      <div class="tags" style="margin-top:10px;">
+        <span class="tag blue">Conflicting objectives</span>
+        <span class="tag green">Iterative improvement</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon green"></div>
+        <div>
+          <h2>Tuning a Recipe</h2>
+          <h3>Reaching the best result through small adjustments</h3>
+        </div>
+      </div>
+      <div class="def-box">
+        You're perfecting a dish — you adjust the salt slightly, taste it, and decide if it's better. You keep adjusting one thing at a time until no small change makes it taste better.
+      </div>
+      <ul class="check-list" style="margin-top:12px;">
+        <li><strong>State:</strong> the current combination of ingredients and quantities</li>
+        <li>You explore the <strong>neighborhood</strong> — small tweaks around the current recipe</li>
+        <li>Risk of a <strong>local maximum:</strong> you might stop at "pretty good" while a completely different combination would be better</li>
+      </ul>
+      <div class="tags" style="margin-top:12px;">
+        <span class="tag orange">Neighborhood = small tweaks</span>
+        <span class="tag blue">Local max risk</span>
+        <span class="tag green">Only final taste matters</span>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:36px;">Analysis Concepts</div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon blue"></div>
+        <div>
+          <h2>State Space Landscape</h2>
+          <h3>Visualizing all possible solutions</h3>
+        </div>
+      </div>
+      <div class="def-box">
+        A way to visualize all possible solutions. The <strong>horizontal axis</strong> represents states (solutions), and the <strong>vertical axis</strong> represents the objective value (quality) of each state.
+      </div>
+      <div class="compare-grid">
+        <div class="compare-col good">
+          <h4>Complete Algorithm</h4>
+          <ul><li>Always finds a goal if one exists</li></ul>
+        </div>
+        <div class="compare-col bad">
+          <h4>The Core Problem</h4>
+          <ul>
+            <li>Can get stuck at a local maximum</li>
+            <li>Does not guarantee the globally optimal solution</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-label" style="margin-top:36px;">Hill Climbing Algorithm</div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon orange"></div>
+        <div>
+          <h2>Hill Climbing Search</h2>
+          <h3>Also known as Greedy Local Search</h3>
+        </div>
+      </div>
+      <div class="def-box">
+        A loop that continually moves in the direction of <strong>increasing values (uphill)</strong>. It picks the <strong>first neighbor</strong> better than the current state and terminates when no neighbor has a higher value.
+      </div>
+      <ul class="check-list" style="margin-top:14px;">
+        <li>Modifies the current state to try to improve it</li>
+        <li>Picks the <strong>first better neighbor</strong> — does not compare all neighbors</li>
+        <li>Terminates at any peak — local OR global maximum</li>
+        <li><strong>Not complete</strong> and <strong>not optimal</strong> in general</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon blue"></div>
+        <div><h2>Problems with Hill Climbing</h2></div>
+      </div>
+      <ul class="check-list">
+        <li><strong>Local Maximum:</strong> A peak better than all its neighbors but NOT the global optimum — the algorithm stops and never finds the best solution</li>
+        <li><strong>Plateau:</strong> A flat area where all neighbors have equal value — no clear direction to move</li>
+        <li><strong>Ridge:</strong> A sequence of local maxima difficult to navigate with simple steps</li>
+      </ul>
+    </div>
+
+    <div class="section-label" style="margin-top:36px;">Summary & Comparison</div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon green"></div>
+        <div><h2>When to Use Local Search?</h2></div>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-col good">
+          <h4>Good Fit When</h4>
+          <ul>
+            <li>Only the final solution matters, not the path</li>
+            <li>Search space is huge and cannot be fully explored</li>
+            <li>Memory is limited</li>
+            <li>Multiple conflicting objectives exist</li>
+          </ul>
+        </div>
+        <div class="compare-col bad">
+          <h4>Poor Fit When</h4>
+          <ul>
+            <li>The path to the solution is important (e.g., navigation)</li>
+            <li>A guaranteed optimal solution is required</li>
+            <li>The search space is small and manageable</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════ QUIZ ══════════════════ -->
+<div id="quiz-section" class="section">
+  <div class="hero" style="padding-bottom:40px;">
+    <div class="hero-badge">First Semester 1448 — Chapter 4</div>
+    <h1>Local Search <em>Algorithms</em></h1>
+    <p>A focused review of local search methods and their applications in optimization — IT426 Artificial Intelligence</p>
+    <div class="hero-tabs">
+      <button class="hero-tab" onclick="showSection('summary',this)">Summary</button>
+      <button class="hero-tab active" onclick="showSection('quiz',this)">Quiz</button>
+    </div>
+  </div>
+  <div style="padding-top:32px;">
+    <div class="quiz-progress-bar">
+      <div class="quiz-progress-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div id="quiz-container"></div>
+  </div>
+</div>
+
+<style>
+  .q-wrap { max-width:680px; margin:0 auto; padding:0 2rem 60px; }
+  .q-label { font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+  .q-type-badge { display:inline-block; font-size:.72rem; padding:3px 10px; border-radius:100px; background:var(--surface2); border:1px solid var(--border); color:var(--text-muted); font-weight:500; margin-bottom:14px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.6; margin-bottom:18px; color:var(--text); }
+  .situation-box { background:var(--surface2); border:1px solid var(--border); border-left:3px solid var(--accent3); border-radius:9px; padding:13px 16px; font-size:.88rem; line-height:1.7; color:var(--text-muted); margin-bottom:18px; }
+  .situation-box strong { color:var(--text); }
+  canvas { border-radius:10px; border:1px solid var(--border); background:#f8f9fc; display:block; width:100%; cursor:pointer; }
+  .canvas-hint { font-size:.78rem; color:var(--text-muted); margin-top:8px; margin-bottom:14px; }
+  .q-options { display:flex; flex-direction:column; gap:9px; margin-bottom:18px; }
+  .q-opt {
+    padding:12px 18px; border-radius:9px; border:1.5px solid var(--border);
+    background:var(--surface); cursor:pointer; font-family:inherit;
+    font-size:.93rem; color:var(--text); text-align:left;
+    transition:all .15s; display:flex; align-items:center; gap:12px;
+  }
+  .q-opt-letter { width:26px; height:26px; border-radius:50%; background:var(--surface2); border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:.76rem; font-weight:700; color:var(--text-muted); flex-shrink:0; }
+  .q-opt:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-light); }
+  .q-opt:hover:not(.disabled) .q-opt-letter { color:var(--accent); border-color:var(--accent); background:var(--accent-light); }
+  .q-opt.correct { border-color:var(--success)!important; background:var(--success-light)!important; }
+  .q-opt.correct .q-opt-letter { color:var(--success)!important; border-color:var(--success)!important; background:rgba(42,157,92,.15)!important; }
+  .q-opt.wrong { border-color:var(--error)!important; background:var(--error-light)!important; }
+  .q-opt.wrong .q-opt-letter { color:var(--error)!important; border-color:var(--error)!important; background:rgba(217,79,61,.12)!important; }
+  .q-opt.disabled { cursor:default; }
+  .feedback-bar { padding:10px 16px; border-radius:8px; font-size:.85rem; font-weight:600; margin-bottom:12px; display:none; }
+  .feedback-bar.correct { background:var(--success-light); color:var(--success); border:1px solid #9fdfbe; }
+  .feedback-bar.wrong { background:var(--error-light); color:var(--error); border:1px solid #f9b8b4; }
+  .q-explain { background:#fffbf0; border:1px solid #f0d88a; border-radius:9px; padding:13px 16px; font-size:.88rem; line-height:1.7; color:var(--text-muted); margin-bottom:18px; display:none; }
+  .q-explain strong { color:var(--text); }
+  .q-next { width:100%; padding:13px; border-radius:9px; border:none; font-family:inherit; font-size:.97rem; font-weight:600; cursor:pointer; background:var(--accent); color:#fff; transition:all .18s; }
+  .q-next:hover { background:#3a6ec0; }
+  .q-next:disabled { opacity:.35; cursor:default; }
+
+  /* build-landscape */
+  .build-wrap { display:flex; flex-direction:column; gap:10px; }
+  .build-slots { display:flex; gap:6px; justify-content:center; margin-bottom:4px; }
+  .build-slot {
+    flex:1; max-width:52px; border-radius:8px; border:2px solid var(--border);
+    background:var(--surface2); cursor:pointer; transition:all .15s;
+    display:flex; flex-direction:column; align-items:center; padding:6px 4px 4px;
+    font-size:.72rem; color:var(--text-muted); font-weight:600;
+  }
+  .build-slot:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-light); }
+  .build-slot.selected { border-color:var(--accent); background:var(--accent-light); color:var(--accent); }
+  .build-slot.correct-slot { border-color:var(--success)!important; background:var(--success-light)!important; color:var(--success)!important; }
+  .build-slot.wrong-slot { border-color:var(--error)!important; background:var(--error-light)!important; color:var(--error)!important; }
+  .build-slot.disabled { cursor:default; }
+  .slot-bar { width:100%; border-radius:4px; background:var(--accent); margin-bottom:4px; transition:height .2s; }
+</style>
+
+<script>
+function showSection(name, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.hero-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(name + '-section').classList.add('active');
+  btn.classList.add('active');
+  if (name === 'quiz' && !quizStarted) initQuiz();
+}
+
+// ─── QUIZ DATA ─────────────────────────────────────────────
+// Two question kinds:
+// 'tree'  — draw a state-space tree, ask which node Hill Climbing returns
+// 'theory'— text MCQ about concepts
+
+const Qs = [
+
+  // Q1 ── Tree: root is highest, stops at A
+  {
+    kind: 'tree',
+    nodes: [
+      {id:'A', val:10, parent:null},
+      {id:'B', val:6,  parent:'A'},
+      {id:'C', val:5,  parent:'A'},
+      {id:'D', val:3,  parent:'A'},
+      {id:'E', val:9,  parent:'B'},
+      {id:'F', val:12, parent:'B'},
+    ],
+    text: 'Which state will be returned by the simple Hill Climbing algorithm?',
+    opts: ['A','B','E','F'],
+    answer: 0,
+    correctPath: ['A'],
+    explain: 'A(10): B(6) not better, C(5) not better, D(3) not better. No child beats A — return A immediately. The algorithm never reaches E or F.'
+  },
+
+  // Q2 ── Tree: A(5)→B(9) first better, B is local max
+  {
+    kind: 'tree',
+    nodes: [
+      {id:'A', val:5,  parent:null},
+      {id:'B', val:9,  parent:'A'},
+      {id:'C', val:8,  parent:'A'},
+      {id:'D', val:7,  parent:'A'},
+      {id:'E', val:6,  parent:'B'},
+      {id:'F', val:7,  parent:'B'},
+    ],
+    text: 'Which state will be returned by the simple Hill Climbing algorithm?',
+    opts: ['A','B','C','F'],
+    answer: 1,
+    correctPath: ['A','B'],
+    explain: 'A(5) → B(9) is first better child → move to B. At B(9): E(6) not better, F(7) not better. Return B. C(8) is never checked — greedy committed to B first.'
+  },
+
+  // Q3 ── Theory HARD: what happens when Hill Climbing starts at a local max
+  {
+    kind: 'theory',
+    text: 'Hill Climbing is run twice on the same problem from two different starting states. Run 1 returns a solution with value 72. Run 2 returns a solution with value 89. What does this tell you?',
+    opts: [
+      'Run 2 found the global maximum — value 89 is always the best possible',
+      'Hill Climbing is non-deterministic so results vary randomly',
+      'The starting state affects the result — different starts can lead to different local maxima',
+      'Run 1 made an error — Hill Climbing always finds the same solution'
+    ],
+    answer: 2,
+    explain: 'Hill Climbing is sensitive to its starting state. Different starts explore different neighborhoods and can get trapped at different local maxima. Neither result is guaranteed to be the global best — Run 2 just happened to start closer to a better solution.'
+  },
+
+  // Q4 ── Theory HARD: plateau behavior
+  {
+    kind: 'theory',
+    text: 'An agent is on a plateau — all neighbors have the same value. Which statement is MOST accurate about what happens next?',
+    opts: [
+      'Hill Climbing stops immediately because no neighbor is strictly better',
+      'Hill Climbing moves randomly and eventually escapes the plateau',
+      'Hill Climbing always finds its way to a peak after crossing any plateau',
+      'The plateau is treated as a global maximum and the algorithm terminates successfully'
+    ],
+    answer: 0,
+    explain: 'In its basic form, Hill Climbing stops when no neighbor is strictly better — a plateau triggers the same termination condition as a local maximum. Some variants (like "sideways moves") allow movement on plateaus, but standard Hill Climbing halts here.'
+  },
+
+  // Q5 ── Landscape: ridge
+  {
+    kind: 'landscape',
+    pts:   [0.15, 0.30, 0.48, 0.62, 0.50, 0.64, 0.58, 0.72],
+    agent: 3,
+    text: 'The agent stopped at point 3 (0.62). Both neighbors are lower. Higher peaks exist at points 5 and 7 but there is a dip between them and the agent. What is this problem called?',
+    opts: ['Local Maximum', 'Plateau', 'Ridge', 'Global Maximum'],
+    answer: 2,
+    explain: 'Ridge — a series of peaks separated by dips. Hill Climbing cannot cross the dip at point 4 (0.50) to reach the higher peaks. It is trapped at a local max even though better solutions are nearby in the landscape.'
+  },
+
+  // Q6 ── Landscape: plateau
+  {
+    kind: 'landscape',
+    pts:   [0.22, 0.40, 0.60, 0.60, 0.60, 0.60, 0.44, 0.28],
+    agent: 3,
+    text: 'The agent is at point 3. Left neighbor = 0.60, right neighbor = 0.60. All three share the same value. What is this situation called?',
+    opts: ['Local Maximum', 'Plateau', 'Ridge', 'Global Maximum'],
+    answer: 1,
+    explain: 'Plateau — a flat region where neighbors have equal value. Hill Climbing requires a strictly better neighbor to move. With no uphill direction, the algorithm stalls.'
+  },
+
+  // Q7 ── Theory HARD: memory usage
+  {
+    kind: 'theory',
+    text: 'You have a problem with 10 billion possible states. You run Hill Climbing vs Breadth-First Search (BFS). Which statement about memory is correct?',
+    opts: [
+      'Both use the same memory — they both store the current state only',
+      'Hill Climbing uses O(1) memory (just the current state); BFS must store the entire frontier which can grow exponentially',
+      'BFS uses less memory because it finds the shortest path',
+      'Hill Climbing uses more memory because it evaluates neighbors at each step'
+    ],
+    answer: 1,
+    explain: 'Hill Climbing only ever stores the current state — memory is constant O(1) regardless of problem size. BFS stores all frontier nodes, which grows exponentially with depth. This is one of the key advantages of local search for large problems.'
+  },
+
+  // Q8 ── Landscape: hard — local vs global
+  {
+    kind: 'landscape',
+    pts:   [0.20, 0.42, 0.65, 0.80, 0.68, 0.50, 0.72, 0.88],
+    agent: 3,
+    text: 'Hill Climbing stopped at point 3 (0.80). Point 7 has value 0.88. Is point 3 a local max or global max?',
+    opts: ['Global Maximum — it is the highest point', 'Plateau — neighbors are equal', 'Local Maximum — a better solution exists at point 7', 'Ridge — cannot navigate further'],
+    answer: 2,
+    explain: 'Local Maximum — point 3 (0.80) beats its immediate neighbors (0.65 and 0.68), so Hill Climbing stops. But point 7 (0.88) is the global best. The algorithm is stuck and cannot see beyond its local neighborhood.'
+  },
+
+  // Q9 ── Theory HARD: complete vs optimal distinction
+  {
+    kind: 'theory',
+    text: 'A local search algorithm is described as "complete but not optimal." What does this mean in practice?',
+    opts: [
+      'It always finds the globally best solution but sometimes takes too long',
+      'It finds a solution if one exists, but that solution may not be the best one',
+      'It only works on problems where a solution is guaranteed to exist',
+      'It finds the best solution but cannot prove it is optimal'
+    ],
+    answer: 1,
+    explain: 'Complete = guaranteed to find some solution if one exists. Optimal = guaranteed that the solution found is the best. "Complete but not optimal" means you will always get an answer, but it may be a local maximum rather than the global best. Hill Climbing is not even guaranteed to be complete in general.'
+  },
+
+  // Q10 ── Theory HARD: why local search is used despite limitations
+  {
+    kind: 'theory',
+    text: 'Given that Hill Climbing is neither complete nor optimal, why is it still widely used for real-world problems like network design and chip layout?',
+    opts: [
+      'It is the only algorithm that works on continuous optimization problems',
+      'The search space is small enough that local maxima are not a real concern',
+      'For massive problems, finding a good-enough solution quickly matters more than guaranteeing the global best',
+      'Modern computers can run it enough times to always find the global optimum'
+    ],
+    answer: 2,
+    explain: 'For problems like IC design or network optimization, the search space is astronomically large — finding the true global optimum is computationally infeasible. A good local solution found quickly is far more valuable than spending infinite time searching for the theoretical best. This trade-off is the entire motivation for local search.'
+  }
+
+];
+
+// ─── STATE ────────────────────────────────────────────────
+let currentQ=0, score=0, quizStarted=false, answered=false;
+function initQuiz(){quizStarted=true;currentQ=0;score=0;answered=false;renderQ();}
+
+// ─── DRAW LANDSCAPE ───────────────────────────────────────
+function drawLandscape(canvasId, q, reveal) {
+  const canvas = document.getElementById(canvasId);
+  if(!canvas) return;
+  const dpr = window.devicePixelRatio||1;
+  const rect = canvas.getBoundingClientRect();
+  const W=rect.width||560, H=rect.height||190;
+  canvas.width=W*dpr; canvas.height=H*dpr;
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+  const n=q.pts.length;
+  const PL=40,PR=18,PT=36,PB=26;
+  const gW=W-PL-PR, gH=H-PT-PB;
+  const px=i=>PL+(i/(n-1))*gW;
+  const py=v=>PT+(1-v)*gH;
+  ctx.strokeStyle='#eaecf2'; ctx.lineWidth=1;
+  [0,.25,.5,.75,1].forEach(g=>{
+    ctx.beginPath(); ctx.moveTo(PL,PT+g*gH); ctx.lineTo(PL+gW,PT+g*gH); ctx.stroke();
+  });
+  ctx.beginPath(); ctx.moveTo(px(0),py(q.pts[0]));
+  q.pts.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
+  ctx.lineTo(px(n-1),PT+gH); ctx.lineTo(px(0),PT+gH); ctx.closePath();
+  ctx.fillStyle='rgba(44,95,173,0.07)'; ctx.fill();
+  ctx.beginPath(); ctx.moveTo(px(0),py(q.pts[0]));
+  q.pts.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
+  ctx.strokeStyle='#2c5fad'; ctx.lineWidth=2.5; ctx.lineJoin='round'; ctx.stroke();
+  ctx.fillStyle='#a0a8bc'; ctx.font='10px Inter,sans-serif';
+  ctx.textAlign='left'; ctx.fillText('Value ↑',2,PT-8);
+  ctx.textAlign='right'; ctx.fillText('States →',W-PR+14,H-4);
+  q.pts.forEach((v,i)=>{
+    const x=px(i), y=py(v);
+    const isAgent=i===q.agent;
+    let r=4.5, fill='#dde3ee', strk=null, sw=0;
+    if(isAgent){r=9; fill='#2c5fad'; strk='#fff'; sw=2.5;}
+    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
+    ctx.fillStyle=fill; ctx.fill();
+    if(strk){ctx.strokeStyle=strk; ctx.lineWidth=sw; ctx.stroke();}
+    if(isAgent){
+      ctx.textAlign='center'; ctx.font='bold 10px Inter,sans-serif';
+      ctx.fillStyle='#2c5fad'; ctx.fillText('agent',x,y-r-5);
+    }
+    if(reveal){
+      ctx.textAlign='center'; ctx.font='9px Inter,sans-serif';
+      ctx.fillStyle='#8892aa'; ctx.fillText(v.toFixed(2),x,y+r+11);
+    }
+  });
+}
+
+// ─── TREE LAYOUT ──────────────────────────────────────────
+function layoutTree(nodes) {
+  // assign x positions by level
+  const byParent = {};
+  nodes.forEach(n=>{
+    const p = n.parent||'__root__';
+    if(!byParent[p]) byParent[p]=[];
+    byParent[p].push(n.id);
+  });
+  const levels = {};
+  const setLevel = (id, lvl)=>{
+    levels[id]=lvl;
+    (byParent[id]||[]).forEach(cid=>setLevel(cid,lvl+1));
+  };
+  const root = nodes.find(n=>!n.parent);
+  setLevel(root.id, 0);
+
+  const maxLvl = Math.max(...Object.values(levels));
+  // count nodes per level for x spacing
+  const lvlCount = {};
+  const lvlIdx   = {};
+  nodes.forEach(n=>{
+    const l=levels[n.id];
+    lvlIdx[n.id] = lvlCount[l]||0;
+    lvlCount[l]  = (lvlCount[l]||0)+1;
+  });
+
+  const W=520, H=200, PAD=30;
+  const positions={};
+  nodes.forEach(n=>{
+    const l=levels[n.id];
+    const cnt=lvlCount[l];
+    const idx=lvlIdx[n.id];
+    positions[n.id]={
+      x: PAD + (idx+0.5) * ((W-PAD*2)/cnt),
+      y: PAD + l * ((H-PAD*2)/maxLvl)
+    };
+  });
+  return {positions, levels};
+}
+
+function drawTree(canvasId, q, highlightPath, finalNode) {
+  const canvas=document.getElementById(canvasId);
+  if(!canvas) return;
+  const dpr=window.devicePixelRatio||1;
+  const rect=canvas.getBoundingClientRect();
+  const W=rect.width||520, H=rect.height||200;
+  // scale layout to actual canvas
+  const LW=520, LH=200;
+  const sx=W/LW, sy=H/LH;
+  canvas.width=W*dpr; canvas.height=H*dpr;
+  const ctx=canvas.getContext('2d');
+  ctx.scale(dpr,dpr);
+
+  const {positions}=layoutTree(q.nodes);
+
+  // draw edges
+  q.nodes.forEach(n=>{
+    if(!n.parent) return;
+    const p=positions[n.parent], c=positions[n.id];
+    const onPath = highlightPath && highlightPath.includes(n.parent) && highlightPath.includes(n.id);
+    ctx.beginPath();
+    ctx.moveTo(p.x*sx, p.y*sy);
+    ctx.lineTo(c.x*sx, c.y*sy);
+    ctx.strokeStyle = onPath ? '#2c5fad' : '#d0d6e2';
+    ctx.lineWidth   = onPath ? 2.5 : 1.5;
+    ctx.stroke();
+  });
+
+  // draw nodes
+  q.nodes.forEach(n=>{
+    const pos=positions[n.id];
+    const x=pos.x*sx, y=pos.y*sy;
+    const isFinal  = finalNode===n.id;
+    const onPath   = highlightPath && highlightPath.includes(n.id);
+    const isRoot   = !n.parent;
+
+    let fill='#f0f3f8', stroke='#b0bbd0', sw=1.5, textColor='#3a4460';
+    if(onPath)  {fill='#dde8f8'; stroke='#2c5fad'; sw=2;}
+    if(isFinal) {fill='#2c5fad'; stroke='#1a4090'; sw=2.5; textColor='#fff';}
+
+    ctx.beginPath(); ctx.arc(x,y,18,0,Math.PI*2);
+    ctx.fillStyle=fill; ctx.fill();
+    ctx.strokeStyle=stroke; ctx.lineWidth=sw; ctx.stroke();
+
+    // node id
+    ctx.fillStyle=textColor; ctx.font='bold 12px Inter,sans-serif'; ctx.textAlign='center';
+    ctx.fillText(n.id, x, y-3);
+    // value
+    ctx.font='10px Inter,sans-serif';
+    ctx.fillStyle=isFinal?'rgba(255,255,255,0.85)':textColor;
+    ctx.fillText(n.val, x, y+10);
+  });
+}
+
+// compute Hill Climbing path on tree
+function hillClimbTree(nodes, q) {
+  const childMap={};
+  nodes.forEach(n=>{
+    if(n.parent){
+      if(!childMap[n.parent]) childMap[n.parent]=[];
+      childMap[n.parent].push(n.id);
+    }
+  });
+  const valMap={};
+  nodes.forEach(n=>valMap[n.id]=n.val);
+  Object.keys(childMap).forEach(k=>childMap[k].sort());
+
+  const root=nodes.find(n=>!n.parent).id;
+  const path=[root];
+  let cur=root;
+  const minimize = q.minimize || false;
+  while(true){
+    const children=childMap[cur]||[];
+    const better = minimize
+      ? children.find(c=>valMap[c]<valMap[cur])
+      : children.find(c=>valMap[c]>valMap[cur]);
+    if(!better) break;
+    path.push(better);
+    cur=better;
+  }
+  return path;
+}
+
+// ─── OPTION CLICK ─────────────────────────────────────────
+function optionClick(idx) {
+  if(answered) return;
+  answered=true;
+  const q=Qs[currentQ];
+  const ok=idx===q.answer;
+  if(ok) score++;
+
+  document.querySelectorAll('.q-opt').forEach((el,i)=>{
+    el.classList.add('disabled'); el.onclick=null;
+    if(i===idx&&ok)           el.classList.add('correct');
+    else if(i===idx)          el.classList.add('wrong');
+    else if(i===q.answer&&!ok) el.classList.add('correct');
+  });
+
+  // redraw with reveal after answer
+  if(q.kind==='tree'){
+    const path = q.correctPath || hillClimbTree(q.nodes, q);
+    drawTree('lc', q, path, path[path.length-1]);
+  }
+  if(q.kind==='landscape'){
+    drawLandscape('lc', q, true);
+  }
+
+  const fb=document.getElementById('feedback');
+  fb.textContent=ok?'Correct.':'Not quite.';
+  fb.className='feedback-bar '+(ok?'correct':'wrong');
+  fb.style.display='block';
+  document.getElementById('q-explain').style.display='block';
+  document.getElementById('q-next').disabled=false;
+}
+
+// ─── RENDER ───────────────────────────────────────────────
+function renderQ() {
+  if(currentQ>=Qs.length){showResults();return;}
+  answered=false;
+  const q=Qs[currentQ];
+  document.getElementById('progress-fill').style.width=(currentQ/Qs.length*100)+'%';
+  const letters=['A','B','C','D'];
+
+  const hasCanvas = q.kind==='tree' || q.kind==='landscape';
+  const badgeLabel = q.kind==='tree' ? 'State-Space Tree' : q.kind==='landscape' ? 'Read the Landscape' : 'Conceptual';
+  const canvasH = q.kind==='tree' ? '240px' : '190px';
+
+  const canvasSection = hasCanvas
+    ? `<canvas id="lc" style="height:${canvasH};margin-bottom:16px;border-radius:10px;border:1px solid var(--border);background:#f8f9fc;width:100%;display:block;"></canvas>` : '';
+
+  document.getElementById('quiz-container').innerHTML=`
+    <div class="q-wrap">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <span class="q-label">Question ${currentQ+1} / ${Qs.length}</span>
+        <span class="q-type-badge">${badgeLabel}</span>
+      </div>
+      ${canvasSection}
+      <div class="q-text">${q.text}</div>
+      <div class="q-options">
+        ${q.opts.map((o,i)=>`
+          <button class="q-opt" onclick="optionClick(${i})">
+            <span class="q-opt-letter">${letters[i]}</span>${o}
+          </button>`).join('')}
+      </div>
+      <div id="feedback" class="feedback-bar"></div>
+      <div id="q-explain" class="q-explain" style="display:none;"><strong>Explanation:</strong> ${q.explain}</div>
+      <button id="q-next" class="q-next" onclick="nextQ()" disabled>
+        ${currentQ<Qs.length-1?'Next Question →':'See Results'}
+      </button>
+    </div>`;
+
+  if(q.kind==='tree')      requestAnimationFrame(()=>drawTree('lc',q,null,null));
+  if(q.kind==='landscape') requestAnimationFrame(()=>drawLandscape('lc',q,false));
+}
+
+function nextQ(){currentQ++;renderQ();}
+
+// ─── RESULTS ──────────────────────────────────────────────
+function showResults(){
+  document.getElementById('progress-fill').style.width='100%';
+  const pct=Math.round(score/Qs.length*100);
+  const C=2*Math.PI*52;
+  let msg,color;
+  if(pct>=75){msg='Excellent — you have mastered this chapter.';color='var(--success)';}
+  else if(pct>=50){msg='Good work. Go back and review the weak spots.';color='var(--accent)';}
+  else{msg='Keep studying. You will get there.';color='var(--error)';}
+  document.getElementById('quiz-container').innerHTML=`
+    <div class="results-card">
+      <div class="score-ring">
+        <svg width="116" height="116" viewBox="0 0 120 120">
+          <circle class="ring-bg" cx="60" cy="60" r="52"/>
+          <circle class="ring-fill" cx="60" cy="60" r="52"
+            stroke="${color}" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct/100)}"/>
+        </svg>
+        <div class="score-num" style="color:${color}">${pct}%</div>
+      </div>
+      <h3>${msg}</h3>
+      <p>You answered ${score} out of ${Qs.length} questions correctly.</p>
+      <div class="results-grid">
+        <div class="result-stat"><div class="num" style="color:var(--success)">${score}</div><div class="lbl">Correct</div></div>
+        <div class="result-stat"><div class="num" style="color:var(--error)">${Qs.length-score}</div><div class="lbl">Wrong</div></div>
+        <div class="result-stat"><div class="num" style="color:var(--accent)">${pct}%</div><div class="lbl">Score</div></div>
+      </div>
+      <button class="restart-btn" onclick="restartQuiz()">Retake Quiz</button>
+    </div>`;
+}
+
+function restartQuiz(){
+  currentQ=0;score=0;answered=false;
+  document.getElementById('progress-fill').style.width='0%';
+  renderQ();
+}</script>
+</body>
+</html>
