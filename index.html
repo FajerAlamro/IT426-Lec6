@@ -40,13 +40,14 @@
     padding: 0 2rem; height: 62px;
     box-shadow: 0 1px 8px rgba(30,50,100,0.06);
   }
-  .nav-left { display: flex; align-items: center; gap: 14px; }
-  .nav-right { display: flex; align-items: center; }
+  .nav-left { display: flex; align-items: center; gap: 14px; min-width: 0; }
+  .nav-right { display: flex; align-items: center; flex-shrink: 0; }
   .nav-logo { height: 40px; width: auto; display: block; }
-  .nav-brand { font-size: .82rem; color: var(--text-muted); }
+  .nav-brand { font-size: .82rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .nav-brand span { color: var(--accent); font-weight: 700; }
+  .nav-title { font-size: .82rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-  .hero-tabs { display: flex; gap: 8px; justify-content: center; margin-top: 28px; }
+  .hero-tabs { display: flex; gap: 8px; justify-content: center; margin-top: 28px; flex-wrap: wrap; }
   .hero-tab {
     padding: 10px 28px; border-radius: 8px; border: 1.5px solid var(--border);
     background: var(--surface); color: var(--text-muted);
@@ -79,7 +80,7 @@
   }
   .hero-badge::before { content: '●'; animation: pulse 2.5s infinite; font-size: .6rem; }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.25} }
-  .hero h1 { font-size: clamp(1.9rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
+  .hero h1 { font-size: clamp(1.6rem, 4.5vw, 3rem); font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
   .hero h1 em { font-style: normal; color: var(--accent); }
   .hero p { font-size: 1rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; line-height: 1.75; }
 
@@ -141,7 +142,6 @@
     margin-bottom: 18px; padding-bottom: 9px; border-bottom: 1px solid var(--border);
   }
 
-  /* ── INTERACTIVE ADDITIONS (same color palette) ── */
   canvas {
     display: block; width: 100%; border-radius: var(--radius-sm);
     border: 1px solid var(--border); background: #f8f9fc; cursor: pointer;
@@ -165,6 +165,7 @@
     border-radius: var(--radius-sm); padding: 11px 16px; margin-top: 10px;
     font-family: 'Fira Code', monospace; font-size: .78rem;
     color: var(--text-muted); min-height: 46px; line-height: 1.9;
+    word-break: break-word;
   }
   .hc-log .ok  { color: var(--success); font-weight: 600; }
   .hc-log .end { color: var(--accent);  font-weight: 600; }
@@ -204,6 +205,7 @@
     background:var(--surface); cursor:pointer; font-family:inherit;
     font-size:.93rem; color:var(--text); text-align:left;
     transition:all .15s; display:flex; align-items:center; gap:12px;
+    word-break: break-word;
   }
   .q-opt-letter { width:26px; height:26px; border-radius:50%; background:var(--surface2); border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:.76rem; font-weight:700; color:var(--text-muted); flex-shrink:0; }
   .q-opt:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-light); }
@@ -244,13 +246,113 @@
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 100px; }
+
+  /* ══════════════════════════════════════════
+     RESPONSIVE — TABLET (≤ 768px)
+  ══════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .container { padding: 36px 1.25rem 70px; }
+    .card { padding: 20px 20px; }
+    .hero { padding: 52px 1.25rem 44px; }
+    .hero p { font-size: .93rem; }
+    .compare-grid { grid-template-columns: 1fr; gap: 10px; }
+    .q-wrap { padding: 0 1.25rem 50px; }
+    .results-card { padding: 32px 24px; margin: 24px 1.25rem 60px; }
+  }
+
+  /* ══════════════════════════════════════════
+     RESPONSIVE — MOBILE (≤ 520px)
+  ══════════════════════════════════════════ */
+  @media (max-width: 520px) {
+    nav { padding: 0 .875rem; height: 52px; }
+    .nav-brand { font-size: .72rem; }
+    .nav-logo { height: 30px; }
+    .nav-title { display: none; }
+
+    .section { padding-top: 52px; }
+
+    .hero { padding: 36px .875rem 32px; }
+    .hero-badge { font-size: .72rem; padding: 4px 11px; margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(1.4rem, 7vw, 1.75rem); margin-bottom: 10px; }
+    .hero p { font-size: .85rem; line-height: 1.65; }
+    .hero-tabs { gap: 6px; margin-top: 20px; }
+    .hero-tab { padding: 9px 20px; font-size: .84rem; flex: 1 1 120px; text-align: center; }
+
+    .container { padding: 24px .875rem 56px; }
+
+    .card { padding: 16px 14px; margin-bottom: 14px; border-radius: 12px; }
+    .card h2 { font-size: .97rem; }
+    .card h3 { font-size: .82rem; }
+    .card-header { gap: 9px; margin-bottom: 14px; padding-bottom: 11px; }
+
+    .def-box { font-size: .85rem; padding: 11px 13px; line-height: 1.7; }
+    .check-list li { font-size: .87rem; gap: 9px; }
+    .section-label { font-size: .61rem; letter-spacing: .11em; margin-bottom: 14px; }
+
+    .compare-grid { grid-template-columns: 1fr; gap: 8px; }
+    .compare-col { padding: 12px 14px; }
+    .compare-col h4 { font-size: .72rem; }
+    .compare-col li { font-size: .82rem; }
+
+    .tags { gap: 5px; }
+    .tag { font-size: .7rem; padding: 3px 9px; }
+
+    canvas { border-radius: 8px; }
+    #landscape-canvas { height: 150px !important; }
+    #hc-canvas { height: 170px !important; }
+    #prob-canvas { height: 155px !important; }
+
+    .ctrl-row { gap: 6px; }
+    .ctrl-btn { padding: 8px 10px; font-size: .78rem; flex: 1 1 auto; text-align: center; min-width: 0; }
+
+    .hc-log { font-size: .72rem; padding: 9px 12px; }
+
+    .prob-tabs { gap: 5px; margin-bottom: 12px; }
+    .prob-tab { padding: 5px 11px; font-size: .74rem; }
+    .prob-desc { font-size: .83rem; padding: 11px 13px; }
+
+    .quiz-progress-bar { margin-bottom: 24px; }
+    .q-wrap { padding: 0 .875rem 44px; }
+    .q-label { font-size: .67rem; }
+    .q-text { font-size: .93rem; line-height: 1.55; margin-bottom: 14px; }
+    .q-opt { padding: 10px 12px; font-size: .84rem; gap: 9px; }
+    .q-opt-letter { width: 24px; height: 24px; font-size: .72rem; }
+    .q-explain { font-size: .83rem; padding: 11px 13px; }
+    .q-next { font-size: .9rem; padding: 12px; }
+
+    #lc { height: 170px !important; }
+
+    .results-card { padding: 26px 16px; margin: 16px .875rem 50px; border-radius: 12px; }
+    .results-card h3 { font-size: 1.05rem; }
+    .results-card > p { font-size: .85rem; }
+    .results-grid { gap: 7px; margin-bottom: 18px; }
+    .result-stat { padding: 12px 6px; }
+    .result-stat .num { font-size: 1.15rem; }
+    .result-stat .lbl { font-size: .67rem; }
+    .restart-btn { font-size: .86rem; padding: 11px; }
+    .score-ring { width: 100px; height: 100px; }
+    .score-num { font-size: 1.45rem; }
+  }
+
+  /* ══════════════════════════════════════════
+     RESPONSIVE — VERY SMALL (≤ 360px)
+  ══════════════════════════════════════════ */
+  @media (max-width: 360px) {
+    nav { padding: 0 .75rem; }
+    .nav-brand { font-size: .66rem; }
+    .hero h1 { font-size: 1.3rem; }
+    .hero-tab { font-size: .78rem; padding: 8px 14px; }
+    .card { padding: 14px 12px; }
+    .ctrl-btn { font-size: .72rem; padding: 7px 8px; }
+    .prob-tab { font-size: .68rem; padding: 4px 9px; }
+  }
 </style>
 </head>
 <body>
 
 <nav>
   <div class="nav-left">
-    <div class="nav-brand"><span>IT426</span> — Artificial Intelligence</div><span>Local Search</span>
+    <div class="nav-brand"><span>IT426</span> — Artificial Intelligence</div><span class="nav-title">Local Search</span>
   </div>
   <div class="nav-right">
     <img src="images/ksu.png" alt="KSU" class="nav-logo" onerror="this.style.display='none'">
@@ -286,9 +388,7 @@
       <p style="color:var(--text-muted);font-size:.9rem;margin-top:10px;line-height:1.75;">
         The search is "local" because it explores only the <strong>immediate neighborhood</strong> of the current solution — not all possibilities.
       </p>
-      <!-- INTERACTIVE landscape -->
       <canvas id="landscape-canvas" height="190" style="margin-top:18px;"></canvas>
-      <p class="canvas-hint">▲ Click to replay — watch the agent climb toward the peak</p>
     </div>
 
     <div class="card">
@@ -301,7 +401,6 @@
         <li>Explores only the <strong>immediate neighborhood</strong> of the current state</li>
         <li>Uses <strong>very little memory</strong> — no need to store the path</li>
         <li>Well-suited for problems with an <strong>astronomically large search space</strong></li>
-        <li>Used when only the <strong>final configuration matters</strong>, not the path to reach it</li>
       </ul>
     </div>
 
@@ -400,7 +499,6 @@
         <li>Picks the <strong>first better neighbor</strong> — does not compare all neighbors</li>
         <li>Terminates at any peak — local OR global maximum</li>
       </ul>
-      <!-- INTERACTIVE Hill Climbing -->
       <canvas id="hc-canvas" height="220" style="margin-top:18px;"></canvas>
       <div class="ctrl-row">
         <button class="ctrl-btn go" onclick="startHC()">▶ Run</button>
@@ -415,7 +513,6 @@
         <div class="card-icon blue"></div>
         <div><h2>Problems with Hill Climbing</h2></div>
       </div>
-      <!-- INTERACTIVE problems -->
       <div class="prob-tabs">
         <button class="prob-tab active" onclick="showProb('lmax',this)">🔴 Local Maximum</button>
         <button class="prob-tab" onclick="showProb('plateau',this)">🟡 Plateau</button>
@@ -501,7 +598,7 @@ let ldPos=0,ldPlaying=false;
 function drawLD(t){
   const c=document.getElementById('landscape-canvas'); if(!c) return;
   const dpr=window.devicePixelRatio||1;
-  const W=c.offsetWidth||800,H=190;
+  const W=c.offsetWidth||800,H=c.offsetHeight||190;
   c.width=W*dpr;c.height=H*dpr;
   const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
   const n=LD_PTS.length,PL=34,PR=18,PT=30,PB=24;
@@ -521,7 +618,6 @@ function drawLD(t){
   LD_PTS.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
   ctx.strokeStyle='#2c5fad';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();
 
-  // global max
   const gmI=11;
   ctx.fillStyle='#2a9d7c';ctx.font='9px Inter,sans-serif';ctx.textAlign='center';
   ctx.fillText('Global Max',px(gmI),py(LD_PTS[gmI])-13);
@@ -533,7 +629,6 @@ function drawLD(t){
   ctx.textAlign='left';ctx.fillText('Value ↑',4,PT-8);
   ctx.textAlign='right';ctx.fillText('States →',W-PR+16,H-2);
 
-  // agent
   const fi=t*(n-1),i0=Math.floor(fi),i1=Math.min(i0+1,n-1),ft=fi-i0;
   const ax=px(i0)*(1-ft)+px(i1)*ft,av=LD_PTS[i0]*(1-ft)+LD_PTS[i1]*ft,ay=py(av);
   const gl=ctx.createRadialGradient(ax,ay,0,ax,ay,18);
@@ -569,7 +664,7 @@ function initHCState(){hcIdx=0;hcDone=false;}
 function drawHCCanvas(){
   const c=document.getElementById('hc-canvas');if(!c)return;
   const dpr=window.devicePixelRatio||1;
-  const W=c.offsetWidth||800,H=220;
+  const W=c.offsetWidth||800,H=c.offsetHeight||220;
   c.width=W*dpr;c.height=H*dpr;
   const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
   const n=HC.length,PL=40,PR=18,PT=38,PB=28;
@@ -661,7 +756,7 @@ function drawProb(key){
   const d=PROBS[key];
   const c=document.getElementById('prob-canvas');if(!c)return;
   const dpr=window.devicePixelRatio||1;
-  const W=c.offsetWidth||800,H=200;
+  const W=c.offsetWidth||800,H=c.offsetHeight||200;
   c.width=W*dpr;c.height=H*dpr;
   const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
   const n=d.pts.length,PL=30,PR=18,PT=34,PB=26;
@@ -715,7 +810,7 @@ window.addEventListener('resize',()=>{
   }
 });
 
-// ── QUIZ (original) ───────────────────────────────────────
+// ── QUIZ ───────────────────────────────────────────────────
 const Qs=[
   {kind:'tree',nodes:[{id:'A',val:10,parent:null},{id:'B',val:6,parent:'A'},{id:'C',val:5,parent:'A'},{id:'D',val:3,parent:'A'},{id:'E',val:9,parent:'B'},{id:'F',val:12,parent:'B'}],text:'Which state will be returned by the simple Hill Climbing algorithm?',opts:['A','B','E','F'],answer:0,correctPath:['A'],explain:'A(10): B(6) not better, C(5) not better, D(3) not better. No child beats A — return A immediately. The algorithm never reaches E or F.'},
   {kind:'tree',nodes:[{id:'A',val:5,parent:null},{id:'B',val:9,parent:'A'},{id:'C',val:8,parent:'A'},{id:'D',val:7,parent:'A'},{id:'E',val:6,parent:'B'},{id:'F',val:7,parent:'B'}],text:'Which state will be returned by the simple Hill Climbing algorithm?',opts:['A','B','C','F'],answer:1,correctPath:['A','B'],explain:'A(5) → B(9) is first better child → move to B. At B(9): E(6) not better, F(7) not better. Return B. C(8) is never checked — greedy committed to B first.'},
@@ -831,11 +926,11 @@ function renderQ(){
   const L=['A','B','C','D'];
   const hasC=q.kind==='tree'||q.kind==='landscape';
   const badge=q.kind==='tree'?'State-Space Tree':q.kind==='landscape'?'Read the Landscape':'Conceptual';
-  const cH=q.kind==='tree'?'240px':'190px';
+  const cH=q.kind==='tree'?'220px':'180px';
   const cSec=hasC?`<canvas id="lc" style="height:${cH};margin-bottom:16px;border-radius:10px;border:1px solid var(--border);background:#f8f9fc;width:100%;display:block;"></canvas>`:'';
   document.getElementById('quiz-container').innerHTML=`
     <div class="q-wrap">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:6px;">
         <span class="q-label">Question ${currentQ+1} / ${Qs.length}</span>
         <span class="q-type-badge">${badge}</span>
       </div>
