@@ -244,7 +244,7 @@
 
 <nav>
   <div class="nav-left">
-    <div class="nav-brand"><span>IT426</span> — Artificial Intelligence</div>
+    <div class="nav-brand"><span>IT426</span> — Artificial Intelligence</div><span>Local Search</span>
   </div>
   <div class="nav-right">
     <img src="images/ksu.png" alt="KSU" class="nav-logo" onerror="this.style.display='none'">
@@ -254,9 +254,9 @@
 <!-- ══════════════════ SUMMARY ══════════════════ -->
 <div id="summary-section" class="section active">
   <div class="hero">
-    <div class="hero-badge">First Semester 1448 — Chapter 4</div>
+    <div class="hero-badge">Local Search Algorithms — Lec 6</div>
     <h1>Local Search <em>Algorithms</em></h1>
-    <p>A focused review of local search methods and their applications in optimization — IT426 Artificial Intelligence</p>
+    <p>A focused review of local search methods and their applications in optimization</p>
     <div class="hero-tabs">
       <button class="hero-tab active" onclick="showSection('summary',this)">Summary</button>
       <button class="hero-tab" onclick="showSection('quiz',this)">Quiz</button>
@@ -345,29 +345,6 @@
       </div>
     </div>
 
-    <div class="card">
-      <div class="card-header">
-        <div class="card-icon green"></div>
-        <div>
-          <h2>Tuning a Recipe</h2>
-          <h3>Reaching the best result through small adjustments</h3>
-        </div>
-      </div>
-      <div class="def-box">
-        You're perfecting a dish — you adjust the salt slightly, taste it, and decide if it's better. You keep adjusting one thing at a time until no small change makes it taste better.
-      </div>
-      <ul class="check-list" style="margin-top:12px;">
-        <li><strong>State:</strong> the current combination of ingredients and quantities</li>
-        <li>You explore the <strong>neighborhood</strong> — small tweaks around the current recipe</li>
-        <li>Risk of a <strong>local maximum:</strong> you might stop at "pretty good" while a completely different combination would be better</li>
-      </ul>
-      <div class="tags" style="margin-top:12px;">
-        <span class="tag orange">Neighborhood = small tweaks</span>
-        <span class="tag blue">Local max risk</span>
-        <span class="tag green">Only final taste matters</span>
-      </div>
-    </div>
-
     <div class="section-label" style="margin-top:36px;">Analysis Concepts</div>
 
     <div class="card">
@@ -413,7 +390,6 @@
         <li>Modifies the current state to try to improve it</li>
         <li>Picks the <strong>first better neighbor</strong> — does not compare all neighbors</li>
         <li>Terminates at any peak — local OR global maximum</li>
-        <li><strong>Not complete</strong> and <strong>not optimal</strong> in general</li>
       </ul>
     </div>
 
@@ -425,7 +401,7 @@
       <ul class="check-list">
         <li><strong>Local Maximum:</strong> A peak better than all its neighbors but NOT the global optimum — the algorithm stops and never finds the best solution</li>
         <li><strong>Plateau:</strong> A flat area where all neighbors have equal value — no clear direction to move</li>
-        <li><strong>Ridge:</strong> A sequence of local maxima difficult to navigate with simple steps</li>
+        <li><strong>Ridge:</strong> A sequence of local maximum difficult to navigate with simple steps</li>
       </ul>
     </div>
 
@@ -588,11 +564,11 @@ const Qs = [
     opts: [
       'Run 2 found the global maximum — value 89 is always the best possible',
       'Hill Climbing is non-deterministic so results vary randomly',
-      'The starting state affects the result — different starts can lead to different local maxima',
+      'The starting state affects the result — different starts can lead to different local maximum',
       'Run 1 made an error — Hill Climbing always finds the same solution'
     ],
     answer: 2,
-    explain: 'Hill Climbing is sensitive to its starting state. Different starts explore different neighborhoods and can get trapped at different local maxima. Neither result is guaranteed to be the global best — Run 2 just happened to start closer to a better solution.'
+    explain: 'Hill Climbing is sensitive to its starting state. Different starts explore different neighborhoods and can get trapped at different local maximum. Neither result is guaranteed to be the global best — Run 2 just happened to start closer to a better solution.'
   },
 
   // Q4 ── Theory HARD: plateau behavior
@@ -650,7 +626,7 @@ const Qs = [
     kind: 'landscape',
     pts:   [0.20, 0.42, 0.65, 0.80, 0.68, 0.50, 0.72, 0.88],
     agent: 3,
-    text: 'Hill Climbing stopped at point 3 (0.80). Point 7 has value 0.88. Is point 3 a local max or global max?',
+    text: 'Hill Climbing stopped at point 3 (0.80). Point 7 has value 0.88. Is point 3 a local maximum or global maximum?',
     opts: ['Global Maximum — it is the highest point', 'Plateau — neighbors are equal', 'Local Maximum — a better solution exists at point 7', 'Ridge — cannot navigate further'],
     answer: 2,
     explain: 'Local Maximum — point 3 (0.80) beats its immediate neighbors (0.65 and 0.68), so Hill Climbing stops. But point 7 (0.88) is the global best. The algorithm is stuck and cannot see beyond its local neighborhood.'
@@ -676,7 +652,7 @@ const Qs = [
     text: 'Given that Hill Climbing is neither complete nor optimal, why is it still widely used for real-world problems like network design and chip layout?',
     opts: [
       'It is the only algorithm that works on continuous optimization problems',
-      'The search space is small enough that local maxima are not a real concern',
+      'The search space is small enough that local maximum are not a real concern',
       'For massive problems, finding a good-enough solution quickly matters more than guaranteeing the global best',
       'Modern computers can run it enough times to always find the global optimum'
     ],
