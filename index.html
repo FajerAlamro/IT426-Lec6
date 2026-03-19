@@ -32,7 +32,6 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
 
-  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     background: rgba(255,255,255,0.93); backdrop-filter: blur(16px);
@@ -44,11 +43,9 @@
   .nav-left { display: flex; align-items: center; gap: 14px; }
   .nav-right { display: flex; align-items: center; }
   .nav-logo { height: 40px; width: auto; display: block; }
-  .nav-divider { width: 1px; height: 26px; background: var(--border); }
   .nav-brand { font-size: .82rem; color: var(--text-muted); }
   .nav-brand span { color: var(--accent); font-weight: 700; }
 
-  /* HERO TABS */
   .hero-tabs { display: flex; gap: 8px; justify-content: center; margin-top: 28px; }
   .hero-tab {
     padding: 10px 28px; border-radius: 8px; border: 1.5px solid var(--border);
@@ -59,11 +56,9 @@
   .hero-tab:hover { border-color: var(--accent); color: var(--accent); }
   .hero-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
 
-  /* SECTIONS */
   .section { display: none; padding-top: 62px; min-height: 100vh; }
   .section.active { display: block; }
 
-  /* HERO */
   .hero {
     padding: 64px 2rem 52px; text-align: center;
     background: linear-gradient(155deg, #eef2fb 0%, #f5f6f8 65%);
@@ -88,10 +83,8 @@
   .hero h1 em { font-style: normal; color: var(--accent); }
   .hero p { font-size: 1rem; color: var(--text-muted); max-width: 520px; margin: 0 auto; line-height: 1.75; }
 
-  /* CONTAINER */
   .container { max-width: 920px; margin: 0 auto; padding: 48px 2rem 80px; }
 
-  /* CARDS */
   .card {
     background: var(--surface); border: 1px solid var(--border);
     border-radius: var(--radius); padding: 26px 30px; margin-bottom: 18px;
@@ -108,17 +101,13 @@
     display: flex; align-items: flex-start; gap: 12px;
     margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--border);
   }
-  .card-icon {
-    width: 10px; height: 10px; border-radius: 50%;
-    flex-shrink: 0; margin-top: 6px;
-  }
+  .card-icon { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
   .card-icon.blue { background: var(--accent); }
   .card-icon.green { background: var(--accent2); }
   .card-icon.orange { background: var(--accent3); }
   .card h2 { font-size: 1.07rem; font-weight: 600; }
   .card h3 { font-size: .87rem; font-weight: 400; color: var(--text-muted); margin-top: 2px; }
 
-  /* DEF BOX */
   .def-box {
     background: var(--accent-light); border-left: 3px solid var(--accent);
     border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
@@ -126,31 +115,16 @@
     font-size: .93rem; line-height: 1.8;
   }
 
-  /* TAGS */
   .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
   .tag { padding: 3px 11px; border-radius: 100px; font-size: .75rem; font-weight: 600; border: 1px solid; }
   .tag.blue { background: var(--accent-light); border-color: rgba(44,95,173,.25); color: var(--accent); }
   .tag.green { background: var(--accent2-light); border-color: rgba(42,157,124,.25); color: var(--accent2); }
   .tag.orange { background: var(--accent3-light); border-color: rgba(201,122,30,.25); color: var(--accent3); }
 
-  /* LIST */
   .check-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
   .check-list li { display: flex; align-items: flex-start; gap: 11px; font-size: .93rem; line-height: 1.65; }
   .check-list li::before { content: '→'; color: var(--accent); flex-shrink: 0; font-weight: 700; margin-top: 1px; }
 
-  /* CODE */
-  .code-block {
-    background: #f8f9fc; border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 18px 22px;
-    font-family: 'Fira Code', monospace; font-size: .82rem;
-    line-height: 1.9; margin-top: 14px; overflow-x: auto;
-  }
-  .code-block .kw { color: var(--accent); font-weight: 600; }
-  .code-block .fn { color: var(--accent2); font-weight: 600; }
-  .code-block .cm { color: var(--text-dim); font-style: italic; }
-  .code-block .vr { color: var(--accent3); }
-
-  /* COMPARE */
   .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
   .compare-col { background: var(--surface2); border-radius: var(--radius-sm); padding: 14px 18px; border: 1px solid var(--border); }
   .compare-col h4 { font-size: .78rem; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .06em; }
@@ -161,56 +135,93 @@
   .compare-col.good li::before { content: '✓'; color: var(--success); flex-shrink:0; font-weight:700; }
   .compare-col.bad li::before { content: '✗'; color: var(--error); flex-shrink:0; font-weight:700; }
 
-  /* SECTION LABEL */
   .section-label {
     font-size: .67rem; font-weight: 700; letter-spacing: .14em;
     color: var(--text-dim); text-transform: uppercase;
     margin-bottom: 18px; padding-bottom: 9px; border-bottom: 1px solid var(--border);
   }
 
+  /* ── INTERACTIVE ADDITIONS (same color palette) ── */
+  canvas {
+    display: block; width: 100%; border-radius: var(--radius-sm);
+    border: 1px solid var(--border); background: #f8f9fc; cursor: pointer;
+  }
+  .canvas-hint { font-size: .76rem; color: var(--text-dim); margin-top: 7px; text-align: center; }
+  .canvas-hint span { color: var(--accent); font-weight: 600; }
+
+  .ctrl-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .ctrl-btn {
+    padding: 7px 18px; border-radius: var(--radius-sm);
+    border: 1.5px solid var(--border); background: var(--surface2);
+    color: var(--text-muted); font-family: inherit; font-size: .82rem;
+    font-weight: 600; cursor: pointer; transition: all .17s;
+  }
+  .ctrl-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .ctrl-btn.go { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .ctrl-btn.go:hover { background: #3a6ec0; }
+
+  .hc-log {
+    background: #f8f9fc; border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 11px 16px; margin-top: 10px;
+    font-family: 'Fira Code', monospace; font-size: .78rem;
+    color: var(--text-muted); min-height: 46px; line-height: 1.9;
+  }
+  .hc-log .ok  { color: var(--success); font-weight: 600; }
+  .hc-log .end { color: var(--accent);  font-weight: 600; }
+
+  .prob-tabs { display: flex; gap: 7px; margin-bottom: 16px; flex-wrap: wrap; }
+  .prob-tab {
+    padding: 6px 16px; border-radius: 100px;
+    border: 1.5px solid var(--border); background: var(--surface2);
+    color: var(--text-muted); font-family: inherit; font-size: .8rem;
+    font-weight: 600; cursor: pointer; transition: all .17s;
+  }
+  .prob-tab:hover { border-color: var(--accent3); color: var(--accent3); }
+  .prob-tab.active {
+    background: var(--accent3-light); border-color: var(--accent3); color: var(--accent3);
+  }
+  .pv { display: none; }
+  .pv.show { display: block; }
+  .prob-desc {
+    background: var(--accent3-light); border-left: 3px solid var(--accent3);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 13px 16px; font-size: .88rem; line-height: 1.75;
+    color: var(--text-muted); margin-top: 12px;
+  }
+  .prob-desc strong { color: var(--text); }
+
   /* QUIZ */
   #quiz-section { background: var(--bg); }
   .quiz-progress-bar { height: 4px; background: var(--border); border-radius: 100px; max-width: 680px; margin: 0 auto 38px; }
   .quiz-progress-fill { height: 100%; background: var(--accent); border-radius: 100px; transition: width .4s ease; }
-  .quiz-question-card { max-width: 680px; margin: 0 auto 60px; padding: 0 2rem; }
-  .question-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
-  .question-num { font-size: .74rem; font-weight: 700; letter-spacing: .1em; color: var(--accent); text-transform: uppercase; }
-  .question-type { font-size: .72rem; padding: 3px 10px; border-radius: 100px; background: var(--surface); color: var(--text-muted); border: 1px solid var(--border); font-weight: 500; }
-  .question-text { font-size: 1.05rem; font-weight: 600; line-height: 1.6; margin-bottom: 22px; }
-  .options { display: flex; flex-direction: column; gap: 9px; margin-bottom: 22px; }
-  .option {
-    padding: 13px 18px; border-radius: var(--radius-sm);
-    border: 1.5px solid var(--border); background: var(--surface);
-    cursor: pointer; font-family: inherit; font-size: .93rem; color: var(--text);
-    text-align: left; transition: all .15s; display: flex; align-items: center; gap: 13px;
-    box-shadow: 0 1px 4px rgba(30,50,100,0.05);
+  .q-wrap { max-width:680px; margin:0 auto; padding:0 2rem 60px; }
+  .q-label { font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+  .q-type-badge { display:inline-block; font-size:.72rem; padding:3px 10px; border-radius:100px; background:var(--surface2); border:1px solid var(--border); color:var(--text-muted); font-weight:500; margin-bottom:14px; }
+  .q-text { font-size:1.05rem; font-weight:600; line-height:1.6; margin-bottom:18px; color:var(--text); }
+  .q-options { display:flex; flex-direction:column; gap:9px; margin-bottom:18px; }
+  .q-opt {
+    padding:12px 18px; border-radius:9px; border:1.5px solid var(--border);
+    background:var(--surface); cursor:pointer; font-family:inherit;
+    font-size:.93rem; color:var(--text); text-align:left;
+    transition:all .15s; display:flex; align-items:center; gap:12px;
   }
-  .option-letter {
-    width: 28px; height: 28px; border-radius: 50%;
-    background: var(--surface2); border: 1.5px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: .77rem; font-weight: 700; color: var(--text-muted); flex-shrink: 0;
-  }
-  .option:hover:not(.disabled) { border-color: var(--accent); background: var(--accent-light); }
-  .option:hover:not(.disabled) .option-letter { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
-  .option.correct { border-color: var(--success)!important; background: var(--success-light)!important; }
-  .option.correct .option-letter { background: rgba(42,157,92,.18)!important; color: var(--success)!important; border-color: var(--success)!important; }
-  .option.wrong { border-color: var(--error)!important; background: var(--error-light)!important; }
-  .option.wrong .option-letter { background: rgba(217,79,61,.14)!important; color: var(--error)!important; border-color: var(--error)!important; }
-  .option.disabled { cursor: default; }
-  .explanation {
-    background: #fffbf0; border: 1px solid #f0d88a; border-radius: var(--radius-sm);
-    padding: 14px 18px; font-size: .88rem; line-height: 1.7; color: var(--text-muted);
-    margin-bottom: 20px; display: none;
-  }
-  .explanation.show { display: block; }
-  .explanation strong { color: var(--text); }
-  .quiz-btn { width: 100%; padding: 13px; border-radius: var(--radius-sm); border: none; font-family: inherit; font-size: .97rem; font-weight: 600; cursor: pointer; transition: all .18s; }
-  .quiz-btn.primary { background: var(--accent); color: #fff; }
-  .quiz-btn.primary:hover { background: #3a6ec0; box-shadow: 0 4px 14px rgba(44,95,173,.28); }
-  .quiz-btn.primary:disabled { opacity: .35; cursor: default; box-shadow: none; }
+  .q-opt-letter { width:26px; height:26px; border-radius:50%; background:var(--surface2); border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:.76rem; font-weight:700; color:var(--text-muted); flex-shrink:0; }
+  .q-opt:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-light); }
+  .q-opt:hover:not(.disabled) .q-opt-letter { color:var(--accent); border-color:var(--accent); background:var(--accent-light); }
+  .q-opt.correct { border-color:var(--success)!important; background:var(--success-light)!important; }
+  .q-opt.correct .q-opt-letter { color:var(--success)!important; border-color:var(--success)!important; background:rgba(42,157,92,.15)!important; }
+  .q-opt.wrong { border-color:var(--error)!important; background:var(--error-light)!important; }
+  .q-opt.wrong .q-opt-letter { color:var(--error)!important; border-color:var(--error)!important; background:rgba(217,79,61,.12)!important; }
+  .q-opt.disabled { cursor:default; }
+  .feedback-bar { padding:10px 16px; border-radius:8px; font-size:.85rem; font-weight:600; margin-bottom:12px; display:none; }
+  .feedback-bar.correct { background:var(--success-light); color:var(--success); border:1px solid #9fdfbe; }
+  .feedback-bar.wrong { background:var(--error-light); color:var(--error); border:1px solid #f9b8b4; }
+  .q-explain { background:#fffbf0; border:1px solid #f0d88a; border-radius:9px; padding:13px 16px; font-size:.88rem; line-height:1.7; color:var(--text-muted); margin-bottom:18px; display:none; }
+  .q-explain strong { color:var(--text); }
+  .q-next { width:100%; padding:13px; border-radius:9px; border:none; font-family:inherit; font-size:.97rem; font-weight:600; cursor:pointer; background:var(--accent); color:#fff; transition:all .18s; }
+  .q-next:hover { background:#3a6ec0; }
+  .q-next:disabled { opacity:.35; cursor:default; }
 
-  /* RESULTS */
   .results-card {
     max-width: 500px; margin: 32px auto 80px; padding: 44px 36px; text-align: center;
     background: var(--surface); border: 1px solid var(--border);
@@ -227,13 +238,8 @@
   .result-stat { background: var(--surface2); border-radius: 9px; padding: 14px 8px; border: 1px solid var(--border); }
   .result-stat .num { font-size: 1.35rem; font-weight: 700; margin-bottom: 3px; }
   .result-stat .lbl { font-size: .71rem; color: var(--text-muted); font-weight: 500; }
-  .restart-btn {
-    width: 100%; padding: 12px; border-radius: var(--radius-sm);
-    background: var(--surface2); border: 1.5px solid var(--border);
-    color: var(--text-muted); font-family: inherit; font-size: .92rem;
-    font-weight: 600; cursor: pointer; transition: all .18s;
-  }
-  .restart-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+  .restart-btn { width:100%; padding:12px; border-radius:var(--radius-sm); background:var(--surface2); border:1.5px solid var(--border); color:var(--text-muted); font-family:inherit; font-size:.92rem; font-weight:600; cursor:pointer; transition:all .18s; }
+  .restart-btn:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-light); }
 
   ::-webkit-scrollbar { width: 5px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
@@ -280,6 +286,9 @@
       <p style="color:var(--text-muted);font-size:.9rem;margin-top:10px;line-height:1.75;">
         The search is "local" because it explores only the <strong>immediate neighborhood</strong> of the current solution — not all possibilities.
       </p>
+      <!-- INTERACTIVE landscape -->
+      <canvas id="landscape-canvas" height="190" style="margin-top:18px;"></canvas>
+      <p class="canvas-hint">▲ Click to replay — watch the agent climb toward the peak</p>
     </div>
 
     <div class="card">
@@ -391,6 +400,14 @@
         <li>Picks the <strong>first better neighbor</strong> — does not compare all neighbors</li>
         <li>Terminates at any peak — local OR global maximum</li>
       </ul>
+      <!-- INTERACTIVE Hill Climbing -->
+      <canvas id="hc-canvas" height="220" style="margin-top:18px;"></canvas>
+      <div class="ctrl-row">
+        <button class="ctrl-btn go" onclick="startHC()">▶ Run</button>
+        <button class="ctrl-btn" onclick="stepHC()">⏭ Step</button>
+        <button class="ctrl-btn" onclick="resetHC()">↺ Reset</button>
+      </div>
+      <div class="hc-log" id="hc-log">Press <strong>Run</strong> or <strong>Step</strong> to watch the algorithm move...</div>
     </div>
 
     <div class="card">
@@ -398,11 +415,22 @@
         <div class="card-icon blue"></div>
         <div><h2>Problems with Hill Climbing</h2></div>
       </div>
-      <ul class="check-list">
-        <li><strong>Local Maximum:</strong> A peak better than all its neighbors but NOT the global optimum — the algorithm stops and never finds the best solution</li>
-        <li><strong>Plateau:</strong> A flat area where all neighbors have equal value — no clear direction to move</li>
-        <li><strong>Ridge:</strong> A sequence of local maximum difficult to navigate with simple steps</li>
-      </ul>
+      <!-- INTERACTIVE problems -->
+      <div class="prob-tabs">
+        <button class="prob-tab active" onclick="showProb('lmax',this)">🔴 Local Maximum</button>
+        <button class="prob-tab" onclick="showProb('plateau',this)">🟡 Plateau</button>
+        <button class="prob-tab" onclick="showProb('ridge',this)">🟠 Ridge</button>
+      </div>
+      <canvas id="prob-canvas" height="200"></canvas>
+      <div id="pv-lmax" class="pv show">
+        <div class="prob-desc"><strong>Local Maximum:</strong> A peak better than all its neighbors but NOT the global optimum — the algorithm stops and never finds the best solution.</div>
+      </div>
+      <div id="pv-plateau" class="pv">
+        <div class="prob-desc"><strong>Plateau:</strong> A flat area where all neighbors have equal value — no clear direction to move. Basic Hill Climbing stalls here.</div>
+      </div>
+      <div id="pv-ridge" class="pv">
+        <div class="prob-desc"><strong>Ridge:</strong> A sequence of local peaks separated by dips — the agent gets trapped and cannot cross the valley to reach higher ground.</div>
+      </div>
     </div>
 
     <div class="section-label" style="margin-top:36px;">Summary & Comparison</div>
@@ -455,413 +483,338 @@
   </div>
 </div>
 
-<style>
-  .q-wrap { max-width:680px; margin:0 auto; padding:0 2rem 60px; }
-  .q-label { font-size:.72rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
-  .q-type-badge { display:inline-block; font-size:.72rem; padding:3px 10px; border-radius:100px; background:var(--surface2); border:1px solid var(--border); color:var(--text-muted); font-weight:500; margin-bottom:14px; }
-  .q-text { font-size:1.05rem; font-weight:600; line-height:1.6; margin-bottom:18px; color:var(--text); }
-  .situation-box { background:var(--surface2); border:1px solid var(--border); border-left:3px solid var(--accent3); border-radius:9px; padding:13px 16px; font-size:.88rem; line-height:1.7; color:var(--text-muted); margin-bottom:18px; }
-  .situation-box strong { color:var(--text); }
-  canvas { border-radius:10px; border:1px solid var(--border); background:#f8f9fc; display:block; width:100%; cursor:pointer; }
-  .canvas-hint { font-size:.78rem; color:var(--text-muted); margin-top:8px; margin-bottom:14px; }
-  .q-options { display:flex; flex-direction:column; gap:9px; margin-bottom:18px; }
-  .q-opt {
-    padding:12px 18px; border-radius:9px; border:1.5px solid var(--border);
-    background:var(--surface); cursor:pointer; font-family:inherit;
-    font-size:.93rem; color:var(--text); text-align:left;
-    transition:all .15s; display:flex; align-items:center; gap:12px;
-  }
-  .q-opt-letter { width:26px; height:26px; border-radius:50%; background:var(--surface2); border:1.5px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:.76rem; font-weight:700; color:var(--text-muted); flex-shrink:0; }
-  .q-opt:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-light); }
-  .q-opt:hover:not(.disabled) .q-opt-letter { color:var(--accent); border-color:var(--accent); background:var(--accent-light); }
-  .q-opt.correct { border-color:var(--success)!important; background:var(--success-light)!important; }
-  .q-opt.correct .q-opt-letter { color:var(--success)!important; border-color:var(--success)!important; background:rgba(42,157,92,.15)!important; }
-  .q-opt.wrong { border-color:var(--error)!important; background:var(--error-light)!important; }
-  .q-opt.wrong .q-opt-letter { color:var(--error)!important; border-color:var(--error)!important; background:rgba(217,79,61,.12)!important; }
-  .q-opt.disabled { cursor:default; }
-  .feedback-bar { padding:10px 16px; border-radius:8px; font-size:.85rem; font-weight:600; margin-bottom:12px; display:none; }
-  .feedback-bar.correct { background:var(--success-light); color:var(--success); border:1px solid #9fdfbe; }
-  .feedback-bar.wrong { background:var(--error-light); color:var(--error); border:1px solid #f9b8b4; }
-  .q-explain { background:#fffbf0; border:1px solid #f0d88a; border-radius:9px; padding:13px 16px; font-size:.88rem; line-height:1.7; color:var(--text-muted); margin-bottom:18px; display:none; }
-  .q-explain strong { color:var(--text); }
-  .q-next { width:100%; padding:13px; border-radius:9px; border:none; font-family:inherit; font-size:.97rem; font-weight:600; cursor:pointer; background:var(--accent); color:#fff; transition:all .18s; }
-  .q-next:hover { background:#3a6ec0; }
-  .q-next:disabled { opacity:.35; cursor:default; }
-
-  /* build-landscape */
-  .build-wrap { display:flex; flex-direction:column; gap:10px; }
-  .build-slots { display:flex; gap:6px; justify-content:center; margin-bottom:4px; }
-  .build-slot {
-    flex:1; max-width:52px; border-radius:8px; border:2px solid var(--border);
-    background:var(--surface2); cursor:pointer; transition:all .15s;
-    display:flex; flex-direction:column; align-items:center; padding:6px 4px 4px;
-    font-size:.72rem; color:var(--text-muted); font-weight:600;
-  }
-  .build-slot:hover:not(.disabled) { border-color:var(--accent); background:var(--accent-light); }
-  .build-slot.selected { border-color:var(--accent); background:var(--accent-light); color:var(--accent); }
-  .build-slot.correct-slot { border-color:var(--success)!important; background:var(--success-light)!important; color:var(--success)!important; }
-  .build-slot.wrong-slot { border-color:var(--error)!important; background:var(--error-light)!important; color:var(--error)!important; }
-  .build-slot.disabled { cursor:default; }
-  .slot-bar { width:100%; border-radius:4px; background:var(--accent); margin-bottom:4px; transition:height .2s; }
-</style>
-
 <script>
+// ── TABS ─────────────────────────────────────────────────
 function showSection(name, btn) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.hero-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById(name + '-section').classList.add('active');
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.hero-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(name+'-section').classList.add('active');
   btn.classList.add('active');
-  if (name === 'quiz' && !quizStarted) initQuiz();
+  if(name==='quiz'&&!quizStarted) initQuiz();
+  if(name==='summary') requestAnimationFrame(()=>{ drawLD(ldPos); drawHCCanvas(); drawProb(curProb); });
 }
 
-// ─── QUIZ DATA ─────────────────────────────────────────────
-// Two question kinds:
-// 'tree'  — draw a state-space tree, ask which node Hill Climbing returns
-// 'theory'— text MCQ about concepts
+// ── LANDSCAPE ANIMATION ──────────────────────────────────
+const LD_PTS=[.12,.26,.44,.38,.60,.52,.76,.66,.88,.72,.82,.95,.89,.80,.68,.58];
+let ldPos=0,ldPlaying=false;
 
-const Qs = [
+function drawLD(t){
+  const c=document.getElementById('landscape-canvas'); if(!c) return;
+  const dpr=window.devicePixelRatio||1;
+  const W=c.offsetWidth||800,H=190;
+  c.width=W*dpr;c.height=H*dpr;
+  const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
+  const n=LD_PTS.length,PL=34,PR=18,PT=30,PB=24;
+  const gW=W-PL-PR,gH=H-PT-PB;
+  const px=i=>PL+(i/(n-1))*gW,py=v=>PT+(1-v)*gH;
 
-  // Q1 ── Tree: root is highest, stops at A
-  {
-    kind: 'tree',
-    nodes: [
-      {id:'A', val:10, parent:null},
-      {id:'B', val:6,  parent:'A'},
-      {id:'C', val:5,  parent:'A'},
-      {id:'D', val:3,  parent:'A'},
-      {id:'E', val:9,  parent:'B'},
-      {id:'F', val:12, parent:'B'},
-    ],
-    text: 'Which state will be returned by the simple Hill Climbing algorithm?',
-    opts: ['A','B','E','F'],
-    answer: 0,
-    correctPath: ['A'],
-    explain: 'A(10): B(6) not better, C(5) not better, D(3) not better. No child beats A — return A immediately. The algorithm never reaches E or F.'
-  },
+  ctx.strokeStyle='#e8eaf0';ctx.lineWidth=1;
+  [0,.5,1].forEach(g=>{ctx.beginPath();ctx.moveTo(PL,PT+g*gH);ctx.lineTo(PL+gW,PT+g*gH);ctx.stroke();});
 
-  // Q2 ── Tree: A(5)→B(9) first better, B is local max
-  {
-    kind: 'tree',
-    nodes: [
-      {id:'A', val:5,  parent:null},
-      {id:'B', val:9,  parent:'A'},
-      {id:'C', val:8,  parent:'A'},
-      {id:'D', val:7,  parent:'A'},
-      {id:'E', val:6,  parent:'B'},
-      {id:'F', val:7,  parent:'B'},
-    ],
-    text: 'Which state will be returned by the simple Hill Climbing algorithm?',
-    opts: ['A','B','C','F'],
-    answer: 1,
-    correctPath: ['A','B'],
-    explain: 'A(5) → B(9) is first better child → move to B. At B(9): E(6) not better, F(7) not better. Return B. C(8) is never checked — greedy committed to B first.'
-  },
+  const gr=ctx.createLinearGradient(0,PT,0,H-PB);
+  gr.addColorStop(0,'rgba(44,95,173,0.12)');gr.addColorStop(1,'rgba(44,95,173,0.01)');
+  ctx.beginPath();ctx.moveTo(px(0),py(LD_PTS[0]));
+  LD_PTS.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
+  ctx.lineTo(px(n-1),H-PB);ctx.lineTo(px(0),H-PB);ctx.closePath();
+  ctx.fillStyle=gr;ctx.fill();
+  ctx.beginPath();ctx.moveTo(px(0),py(LD_PTS[0]));
+  LD_PTS.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
+  ctx.strokeStyle='#2c5fad';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();
 
-  // Q3 ── Theory HARD: what happens when Hill Climbing starts at a local max
-  {
-    kind: 'theory',
-    text: 'Hill Climbing is run twice on the same problem from two different starting states. Run 1 returns a solution with value 72. Run 2 returns a solution with value 89. What does this tell you?',
-    opts: [
-      'Run 2 found the global maximum — value 89 is always the best possible',
-      'Hill Climbing is non-deterministic so results vary randomly',
-      'The starting state affects the result — different starts can lead to different local maximum',
-      'Run 1 made an error — Hill Climbing always finds the same solution'
-    ],
-    answer: 2,
-    explain: 'Hill Climbing is sensitive to its starting state. Different starts explore different neighborhoods and can get trapped at different local maximum. Neither result is guaranteed to be the global best — Run 2 just happened to start closer to a better solution.'
-  },
+  // global max
+  const gmI=11;
+  ctx.fillStyle='#2a9d7c';ctx.font='9px Inter,sans-serif';ctx.textAlign='center';
+  ctx.fillText('Global Max',px(gmI),py(LD_PTS[gmI])-13);
+  ctx.beginPath();ctx.arc(px(gmI),py(LD_PTS[gmI]),5,0,Math.PI*2);
+  ctx.fillStyle='rgba(42,157,124,0.25)';ctx.fill();
+  ctx.strokeStyle='#2a9d7c';ctx.lineWidth=1.5;ctx.stroke();
 
-  // Q4 ── Theory HARD: plateau behavior
-  {
-    kind: 'theory',
-    text: 'An agent is on a plateau — all neighbors have the same value. Which statement is MOST accurate about what happens next?',
-    opts: [
-      'Hill Climbing stops immediately because no neighbor is strictly better',
-      'Hill Climbing moves randomly and eventually escapes the plateau',
-      'Hill Climbing always finds its way to a peak after crossing any plateau',
-      'The plateau is treated as a global maximum and the algorithm terminates successfully'
-    ],
-    answer: 0,
-    explain: 'In its basic form, Hill Climbing stops when no neighbor is strictly better — a plateau triggers the same termination condition as a local maximum. Some variants (like "sideways moves") allow movement on plateaus, but standard Hill Climbing halts here.'
-  },
+  ctx.fillStyle='#a0a8bc';ctx.font='9px Inter,sans-serif';
+  ctx.textAlign='left';ctx.fillText('Value ↑',4,PT-8);
+  ctx.textAlign='right';ctx.fillText('States →',W-PR+16,H-2);
 
-  // Q5 ── Landscape: ridge
-  {
-    kind: 'landscape',
-    pts:   [0.15, 0.30, 0.48, 0.62, 0.50, 0.64, 0.58, 0.72],
-    agent: 3,
-    text: 'The agent stopped at point 3 (0.62). Both neighbors are lower. Higher peaks exist at points 5 and 7 but there is a dip between them and the agent. What is this problem called?',
-    opts: ['Local Maximum', 'Plateau', 'Ridge', 'Global Maximum'],
-    answer: 2,
-    explain: 'Ridge — a series of peaks separated by dips. Hill Climbing cannot cross the dip at point 4 (0.50) to reach the higher peaks. It is trapped at a local max even though better solutions are nearby in the landscape.'
-  },
+  // agent
+  const fi=t*(n-1),i0=Math.floor(fi),i1=Math.min(i0+1,n-1),ft=fi-i0;
+  const ax=px(i0)*(1-ft)+px(i1)*ft,av=LD_PTS[i0]*(1-ft)+LD_PTS[i1]*ft,ay=py(av);
+  const gl=ctx.createRadialGradient(ax,ay,0,ax,ay,18);
+  gl.addColorStop(0,'rgba(44,95,173,0.18)');gl.addColorStop(1,'transparent');
+  ctx.fillStyle=gl;ctx.beginPath();ctx.arc(ax,ay,18,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(ax,ay,9,0,Math.PI*2);
+  ctx.fillStyle='#2c5fad';ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.55)';ctx.lineWidth=2.5;ctx.stroke();
+  ctx.fillStyle='#fff';ctx.font='bold 8px Inter,sans-serif';ctx.textAlign='center';ctx.fillText('A',ax,ay+3);
+}
 
-  // Q6 ── Landscape: plateau
-  {
-    kind: 'landscape',
-    pts:   [0.22, 0.40, 0.60, 0.60, 0.60, 0.60, 0.44, 0.28],
-    agent: 3,
-    text: 'The agent is at point 3. Left neighbor = 0.60, right neighbor = 0.60. All three share the same value. What is this situation called?',
-    opts: ['Local Maximum', 'Plateau', 'Ridge', 'Global Maximum'],
-    answer: 1,
-    explain: 'Plateau — a flat region where neighbors have equal value. Hill Climbing requires a strictly better neighbor to move. With no uphill direction, the algorithm stalls.'
-  },
+function animLD(){
+  ldPos+=0.004;
+  if(ldPos>1){ldPos=1;ldPlaying=false;setTimeout(()=>{ldPos=0;ldPlaying=true;animLD();},1600);return;}
+  drawLD(ldPos);
+  if(ldPlaying) requestAnimationFrame(animLD);
+}
 
-  // Q7 ── Theory HARD: memory usage
-  {
-    kind: 'theory',
-    text: 'You have a problem with 10 billion possible states. You run Hill Climbing vs Breadth-First Search (BFS). Which statement about memory is correct?',
-    opts: [
-      'Both use the same memory — they both store the current state only',
-      'Hill Climbing uses O(1) memory (just the current state); BFS must store the entire frontier which can grow exponentially',
-      'BFS uses less memory because it finds the shortest path',
-      'Hill Climbing uses more memory because it evaluates neighbors at each step'
-    ],
-    answer: 1,
-    explain: 'Hill Climbing only ever stores the current state — memory is constant O(1) regardless of problem size. BFS stores all frontier nodes, which grows exponentially with depth. This is one of the key advantages of local search for large problems.'
-  },
+document.addEventListener('DOMContentLoaded',()=>{
+  drawLD(0);
+  document.getElementById('landscape-canvas').addEventListener('click',()=>{if(!ldPlaying){ldPos=0;ldPlaying=true;animLD();}});
+  initHCState();drawHCCanvas();
+  drawProb('lmax');
+  setTimeout(()=>{ldPlaying=true;animLD();},500);
+});
 
-  // Q8 ── Landscape: hard — local vs global
-  {
-    kind: 'landscape',
-    pts:   [0.20, 0.42, 0.65, 0.80, 0.68, 0.50, 0.72, 0.88],
-    agent: 3,
-    text: 'Hill Climbing stopped at point 3 (0.80). Point 7 has value 0.88. Is point 3 a local maximum or global maximum?',
-    opts: ['Global Maximum — it is the highest point', 'Plateau — neighbors are equal', 'Local Maximum — a better solution exists at point 7', 'Ridge — cannot navigate further'],
-    answer: 2,
-    explain: 'Local Maximum — point 3 (0.80) beats its immediate neighbors (0.65 and 0.68), so Hill Climbing stops. But point 7 (0.88) is the global best. The algorithm is stuck and cannot see beyond its local neighborhood.'
-  },
+// ── HILL CLIMBING ─────────────────────────────────────────
+const HC=[0.18,0.32,0.55,0.70,0.62,0.58,0.82,0.74,0.71,0.60];
+let hcIdx=0,hcDone=false,hcTimer=null;
 
-  // Q9 ── Theory HARD: complete vs optimal distinction
-  {
-    kind: 'theory',
-    text: 'A local search algorithm is described as "complete but not optimal." What does this mean in practice?',
-    opts: [
-      'It always finds the globally best solution but sometimes takes too long',
-      'It finds a solution if one exists, but that solution may not be the best one',
-      'It only works on problems where a solution is guaranteed to exist',
-      'It finds the best solution but cannot prove it is optimal'
-    ],
-    answer: 1,
-    explain: 'Complete = guaranteed to find some solution if one exists. Optimal = guaranteed that the solution found is the best. "Complete but not optimal" means you will always get an answer, but it may be a local maximum rather than the global best. Hill Climbing is not even guaranteed to be complete in general.'
-  },
+function initHCState(){hcIdx=0;hcDone=false;}
 
-  // Q10 ── Theory HARD: why local search is used despite limitations
-  {
-    kind: 'theory',
-    text: 'Given that Hill Climbing is neither complete nor optimal, why is it still widely used for real-world problems like network design and chip layout?',
-    opts: [
-      'It is the only algorithm that works on continuous optimization problems',
-      'The search space is small enough that local maximum are not a real concern',
-      'For massive problems, finding a good-enough solution quickly matters more than guaranteeing the global best',
-      'Modern computers can run it enough times to always find the global optimum'
-    ],
-    answer: 2,
-    explain: 'For problems like IC design or network optimization, the search space is astronomically large — finding the true global optimum is computationally infeasible. A good local solution found quickly is far more valuable than spending infinite time searching for the theoretical best. This trade-off is the entire motivation for local search.'
+function drawHCCanvas(){
+  const c=document.getElementById('hc-canvas');if(!c)return;
+  const dpr=window.devicePixelRatio||1;
+  const W=c.offsetWidth||800,H=220;
+  c.width=W*dpr;c.height=H*dpr;
+  const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
+  const n=HC.length,PL=40,PR=18,PT=38,PB=28;
+  const gW=W-PL-PR,gH=H-PT-PB;
+  const px=i=>PL+(i/(n-1))*gW,py=v=>PT+(1-v)*gH;
+
+  [0,.25,.5,.75,1].forEach(g=>{
+    ctx.strokeStyle='#eaecf2';ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(PL,PT+g*gH);ctx.lineTo(PL+gW,PT+g*gH);ctx.stroke();
+    ctx.fillStyle='#c0c8d8';ctx.font='8px Fira Code,monospace';ctx.textAlign='right';
+    ctx.fillText((1-g).toFixed(2),PL-5,PT+g*gH+3);
+  });
+
+  const gr=ctx.createLinearGradient(0,PT,0,H-PB);
+  gr.addColorStop(0,'rgba(44,95,173,0.09)');gr.addColorStop(1,'rgba(44,95,173,0.01)');
+  ctx.beginPath();ctx.moveTo(px(0),py(HC[0]));
+  HC.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
+  ctx.lineTo(px(n-1),H-PB);ctx.lineTo(px(0),H-PB);ctx.closePath();
+  ctx.fillStyle=gr;ctx.fill();
+  ctx.beginPath();ctx.moveTo(px(0),py(HC[0]));
+  HC.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
+  ctx.strokeStyle='rgba(44,95,173,0.35)';ctx.lineWidth=2;ctx.lineJoin='round';ctx.stroke();
+
+  HC.forEach((v,i)=>{
+    const x=px(i),y=py(v),isA=i===hcIdx;
+    if(isA){
+      const gl=ctx.createRadialGradient(x,y,0,x,y,20);
+      gl.addColorStop(0,'rgba(44,95,173,0.18)');gl.addColorStop(1,'transparent');
+      ctx.fillStyle=gl;ctx.beginPath();ctx.arc(x,y,20,0,Math.PI*2);ctx.fill();
+    }
+    ctx.beginPath();ctx.arc(x,y,isA?11:5.5,0,Math.PI*2);
+    ctx.fillStyle=isA?'#2c5fad':'rgba(44,95,173,0.3)';ctx.fill();
+    if(isA){ctx.strokeStyle='rgba(255,255,255,0.55)';ctx.lineWidth=2.5;ctx.stroke();}
+    ctx.fillStyle=isA?'#2c5fad':'#a0a8bc';
+    ctx.font=(isA?'bold ':'')+'8px Fira Code,monospace';ctx.textAlign='center';
+    ctx.fillText(v.toFixed(2),x,y-(isA?20:14));
+    ctx.fillStyle='#c0c8d8';ctx.font='8px Inter,sans-serif';ctx.fillText('s'+i,x,H-PB+14);
+  });
+
+  if(hcDone){
+    const x=px(hcIdx),y=py(HC[hcIdx]);
+    ctx.beginPath();ctx.arc(x,y,17,0,Math.PI*2);
+    ctx.strokeStyle='rgba(42,157,92,0.45)';ctx.lineWidth=2;ctx.stroke();
+    ctx.fillStyle='#2a9d5c';ctx.font='bold 9px Inter,sans-serif';ctx.textAlign='center';
+    ctx.fillText('STOP',x,y-26);
+  }
+}
+
+function hcLog(html){const el=document.getElementById('hc-log');if(el)el.innerHTML=html;}
+
+function doStep(){
+  if(hcDone)return false;
+  const n=HC.length,cur=hcIdx;
+  const rI=cur+1<n?cur+1:null,lI=cur-1>=0?cur-1:null;
+  const rV=rI!==null?HC[rI]:-Infinity,lV=lI!==null?HC[lI]:-Infinity;
+  const best=Math.max(rV,lV);
+  if(best<=HC[cur]){
+    hcDone=true;
+    hcLog(`<span class="end">✓ Terminated at s${cur} (${HC[cur].toFixed(2)}) — no neighbor is strictly higher.</span>`);
+    drawHCCanvas();return false;
+  }
+  const next=rV>=lV?rI:lI;
+  hcLog(`<span class="ok">s${cur}(${HC[cur].toFixed(2)}) → s${next}(${HC[next].toFixed(2)})</span>  ↑ better neighbor found`);
+  hcIdx=next;drawHCCanvas();return true;
+}
+
+function startHC(){
+  if(hcTimer)clearInterval(hcTimer);
+  if(hcDone)resetHC();
+  hcLog('Running...');
+  hcTimer=setInterval(()=>{if(!doStep())clearInterval(hcTimer);},900);
+}
+function stepHC(){doStep();}
+function resetHC(){
+  if(hcTimer)clearInterval(hcTimer);
+  initHCState();drawHCCanvas();
+  hcLog('Press <strong>Run</strong> or <strong>Step</strong> to watch the algorithm move...');
+}
+
+// ── PROBLEMS ─────────────────────────────────────────────
+const PROBS={
+  lmax:   {pts:[.14,.34,.58,.82,.68,.54,.70,.60,.44,.28],agent:3,gI:3, ac:'#d94f3d'},
+  plateau:{pts:[.18,.36,.56,.72,.72,.72,.72,.54,.36,.20],agent:4,gI:3, ac:'#c97a1e'},
+  ridge:  {pts:[.18,.44,.72,.84,.64,.48,.76,.91,.74,.54],agent:3,gI:7, ac:'#d94f3d'}
+};
+let curProb='lmax';
+
+function drawProb(key){
+  const d=PROBS[key];
+  const c=document.getElementById('prob-canvas');if(!c)return;
+  const dpr=window.devicePixelRatio||1;
+  const W=c.offsetWidth||800,H=200;
+  c.width=W*dpr;c.height=H*dpr;
+  const ctx=c.getContext('2d');ctx.scale(dpr,dpr);
+  const n=d.pts.length,PL=30,PR=18,PT=34,PB=26;
+  const gW=W-PL-PR,gH=H-PT-PB;
+  const px=i=>PL+(i/(n-1))*gW,py=v=>PT+(1-v)*gH;
+
+  const gr=ctx.createLinearGradient(0,PT,0,H-PB);
+  gr.addColorStop(0,'rgba(44,95,173,0.09)');gr.addColorStop(1,'rgba(44,95,173,0.01)');
+  ctx.beginPath();ctx.moveTo(px(0),py(d.pts[0]));
+  d.pts.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
+  ctx.lineTo(px(n-1),H-PB);ctx.lineTo(px(0),H-PB);ctx.closePath();
+  ctx.fillStyle=gr;ctx.fill();
+  ctx.beginPath();ctx.moveTo(px(0),py(d.pts[0]));
+  d.pts.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
+  ctx.strokeStyle='#2c5fad';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();
+
+  if(d.gI!==d.agent){
+    const gx=px(d.gI),gy=py(d.pts[d.gI]);
+    ctx.beginPath();ctx.arc(gx,gy,7,0,Math.PI*2);
+    ctx.fillStyle='rgba(42,157,92,0.18)';ctx.fill();
+    ctx.strokeStyle='#2a9d5c';ctx.lineWidth=1.5;ctx.stroke();
+    ctx.fillStyle='#2a9d5c';ctx.font='9px Inter,sans-serif';ctx.textAlign='center';
+    ctx.fillText('Global Max',gx,gy-13);
   }
 
+  const ax=px(d.agent),ay=py(d.pts[d.agent]);
+  const gl=ctx.createRadialGradient(ax,ay,0,ax,ay,22);
+  gl.addColorStop(0,d.ac+'2a');gl.addColorStop(1,'transparent');
+  ctx.fillStyle=gl;ctx.beginPath();ctx.arc(ax,ay,22,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(ax,ay,11,0,Math.PI*2);
+  ctx.fillStyle=d.ac;ctx.fill();
+  ctx.strokeStyle='rgba(255,255,255,0.45)';ctx.lineWidth=2.5;ctx.stroke();
+  ctx.fillStyle='#fff';ctx.font='bold 8px Inter,sans-serif';ctx.textAlign='center';
+  ctx.fillText('STUCK',ax,ay+3);
+  ctx.fillStyle=d.ac;ctx.font='9px Fira Code,monospace';
+  ctx.fillText(d.pts[d.agent].toFixed(2),ax,ay-20);
+}
+
+function showProb(key,btn){
+  curProb=key;
+  document.querySelectorAll('.prob-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.pv').forEach(v=>v.classList.remove('show'));
+  btn.classList.add('active');
+  document.getElementById('pv-'+key).classList.add('show');
+  drawProb(key);
+}
+
+window.addEventListener('resize',()=>{
+  if(document.getElementById('summary-section').classList.contains('active')){
+    drawLD(ldPos);drawHCCanvas();drawProb(curProb);
+  }
+});
+
+// ── QUIZ (original) ───────────────────────────────────────
+const Qs=[
+  {kind:'tree',nodes:[{id:'A',val:10,parent:null},{id:'B',val:6,parent:'A'},{id:'C',val:5,parent:'A'},{id:'D',val:3,parent:'A'},{id:'E',val:9,parent:'B'},{id:'F',val:12,parent:'B'}],text:'Which state will be returned by the simple Hill Climbing algorithm?',opts:['A','B','E','F'],answer:0,correctPath:['A'],explain:'A(10): B(6) not better, C(5) not better, D(3) not better. No child beats A — return A immediately. The algorithm never reaches E or F.'},
+  {kind:'tree',nodes:[{id:'A',val:5,parent:null},{id:'B',val:9,parent:'A'},{id:'C',val:8,parent:'A'},{id:'D',val:7,parent:'A'},{id:'E',val:6,parent:'B'},{id:'F',val:7,parent:'B'}],text:'Which state will be returned by the simple Hill Climbing algorithm?',opts:['A','B','C','F'],answer:1,correctPath:['A','B'],explain:'A(5) → B(9) is first better child → move to B. At B(9): E(6) not better, F(7) not better. Return B. C(8) is never checked — greedy committed to B first.'},
+  {kind:'theory',text:'Hill Climbing is run twice on the same problem from two different starting states. Run 1 returns a solution with value 72. Run 2 returns a solution with value 89. What does this tell you?',opts:['Run 2 found the global maximum — value 89 is always the best possible','Hill Climbing is non-deterministic so results vary randomly','The starting state affects the result — different starts can lead to different local maximum','Run 1 made an error — Hill Climbing always finds the same solution'],answer:2,explain:'Hill Climbing is sensitive to its starting state. Different starts explore different neighborhoods and can get trapped at different local maximum. Neither result is guaranteed to be the global best — Run 2 just happened to start closer to a better solution.'},
+  {kind:'theory',text:'An agent is on a plateau — all neighbors have the same value. Which statement is MOST accurate about what happens next?',opts:['Hill Climbing stops immediately because no neighbor is strictly better','Hill Climbing moves randomly and eventually escapes the plateau','Hill Climbing always finds its way to a peak after crossing any plateau','The plateau is treated as a global maximum and the algorithm terminates successfully'],answer:0,explain:'In its basic form, Hill Climbing stops when no neighbor is strictly better — a plateau triggers the same termination condition as a local maximum. Some variants allow sideways moves, but standard Hill Climbing halts here.'},
+  {kind:'landscape',pts:[0.15,0.30,0.48,0.62,0.50,0.64,0.58,0.72],agent:3,text:'The agent stopped at point 3 (0.62). Both neighbors are lower. Higher peaks exist at points 5 and 7 but there is a dip between them and the agent. What is this problem called?',opts:['Local Maximum','Plateau','Ridge','Global Maximum'],answer:2,explain:'Ridge — a series of peaks separated by dips. Hill Climbing cannot cross the dip at point 4 (0.50) to reach the higher peaks. It is trapped at a local max even though better solutions are nearby in the landscape.'},
+  {kind:'landscape',pts:[0.22,0.40,0.60,0.60,0.60,0.60,0.44,0.28],agent:3,text:'The agent is at point 3. Left neighbor = 0.60, right neighbor = 0.60. All three share the same value. What is this situation called?',opts:['Local Maximum','Plateau','Ridge','Global Maximum'],answer:1,explain:'Plateau — a flat region where neighbors have equal value. Hill Climbing requires a strictly better neighbor to move. With no uphill direction, the algorithm stalls.'},
+  {kind:'theory',text:'You have a problem with 10 billion possible states. You run Hill Climbing vs Breadth-First Search (BFS). Which statement about memory is correct?',opts:['Both use the same memory — they both store the current state only','Hill Climbing uses O(1) memory (just the current state); BFS must store the entire frontier which can grow exponentially','BFS uses less memory because it finds the shortest path','Hill Climbing uses more memory because it evaluates neighbors at each step'],answer:1,explain:'Hill Climbing only ever stores the current state — memory is constant O(1) regardless of problem size. BFS stores all frontier nodes, which grows exponentially with depth. This is one of the key advantages of local search for large problems.'},
+  {kind:'landscape',pts:[0.20,0.42,0.65,0.80,0.68,0.50,0.72,0.88],agent:3,text:'Hill Climbing stopped at point 3 (0.80). Point 7 has value 0.88. Is point 3 a local maximum or global maximum?',opts:['Global Maximum — it is the highest point','Plateau — neighbors are equal','Local Maximum — a better solution exists at point 7','Ridge — cannot navigate further'],answer:2,explain:'Local Maximum — point 3 (0.80) beats its immediate neighbors (0.65 and 0.68), so Hill Climbing stops. But point 7 (0.88) is the global best. The algorithm is stuck and cannot see beyond its local neighborhood.'},
+  {kind:'theory',text:'A local search algorithm is described as "complete but not optimal." What does this mean in practice?',opts:['It always finds the globally best solution but sometimes takes too long','It finds a solution if one exists, but that solution may not be the best one','It only works on problems where a solution is guaranteed to exist','It finds the best solution but cannot prove it is optimal'],answer:1,explain:'Complete = guaranteed to find some solution if one exists. Optimal = guaranteed that the solution found is the best. "Complete but not optimal" means you will always get an answer, but it may be a local maximum rather than the global best. Hill Climbing is not even guaranteed to be complete in general.'},
+  {kind:'theory',text:'Given that Hill Climbing is neither complete nor optimal, why is it still widely used for real-world problems like network design and chip layout?',opts:['It is the only algorithm that works on continuous optimization problems','The search space is small enough that local maximum are not a real concern','For massive problems, finding a good-enough solution quickly matters more than guaranteeing the global best','Modern computers can run it enough times to always find the global optimum'],answer:2,explain:'For problems like IC design or network optimization, the search space is astronomically large — finding the true global optimum is computationally infeasible. A good local solution found quickly is far more valuable than spending infinite time searching for the theoretical best.'}
 ];
 
-// ─── STATE ────────────────────────────────────────────────
-let currentQ=0, score=0, quizStarted=false, answered=false;
+let currentQ=0,score=0,quizStarted=false,answered=false;
 function initQuiz(){quizStarted=true;currentQ=0;score=0;answered=false;renderQ();}
 
-// ─── DRAW LANDSCAPE ───────────────────────────────────────
-function drawLandscape(canvasId, q, reveal) {
-  const canvas = document.getElementById(canvasId);
-  if(!canvas) return;
-  const dpr = window.devicePixelRatio||1;
-  const rect = canvas.getBoundingClientRect();
-  const W=rect.width||560, H=rect.height||190;
-  canvas.width=W*dpr; canvas.height=H*dpr;
-  const ctx=canvas.getContext('2d');
-  ctx.scale(dpr,dpr);
-  const n=q.pts.length;
-  const PL=40,PR=18,PT=36,PB=26;
-  const gW=W-PL-PR, gH=H-PT-PB;
-  const px=i=>PL+(i/(n-1))*gW;
-  const py=v=>PT+(1-v)*gH;
-  ctx.strokeStyle='#eaecf2'; ctx.lineWidth=1;
-  [0,.25,.5,.75,1].forEach(g=>{
-    ctx.beginPath(); ctx.moveTo(PL,PT+g*gH); ctx.lineTo(PL+gW,PT+g*gH); ctx.stroke();
-  });
-  ctx.beginPath(); ctx.moveTo(px(0),py(q.pts[0]));
-  q.pts.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
-  ctx.lineTo(px(n-1),PT+gH); ctx.lineTo(px(0),PT+gH); ctx.closePath();
-  ctx.fillStyle='rgba(44,95,173,0.07)'; ctx.fill();
-  ctx.beginPath(); ctx.moveTo(px(0),py(q.pts[0]));
-  q.pts.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
-  ctx.strokeStyle='#2c5fad'; ctx.lineWidth=2.5; ctx.lineJoin='round'; ctx.stroke();
-  ctx.fillStyle='#a0a8bc'; ctx.font='10px Inter,sans-serif';
-  ctx.textAlign='left'; ctx.fillText('Value ↑',2,PT-8);
-  ctx.textAlign='right'; ctx.fillText('States →',W-PR+14,H-4);
-  q.pts.forEach((v,i)=>{
-    const x=px(i), y=py(v);
-    const isAgent=i===q.agent;
-    let r=4.5, fill='#dde3ee', strk=null, sw=0;
-    if(isAgent){r=9; fill='#2c5fad'; strk='#fff'; sw=2.5;}
-    ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2);
-    ctx.fillStyle=fill; ctx.fill();
-    if(strk){ctx.strokeStyle=strk; ctx.lineWidth=sw; ctx.stroke();}
-    if(isAgent){
-      ctx.textAlign='center'; ctx.font='bold 10px Inter,sans-serif';
-      ctx.fillStyle='#2c5fad'; ctx.fillText('agent',x,y-r-5);
-    }
-    if(reveal){
-      ctx.textAlign='center'; ctx.font='9px Inter,sans-serif';
-      ctx.fillStyle='#8892aa'; ctx.fillText(v.toFixed(2),x,y+r+11);
-    }
-  });
+function layoutTree(nodes){
+  const byP={};nodes.forEach(n=>{const p=n.parent||'__r__';if(!byP[p])byP[p]=[];byP[p].push(n.id);});
+  const lvl={};const setL=(id,l)=>{lvl[id]=l;(byP[id]||[]).forEach(c=>setL(c,l+1));};
+  const root=nodes.find(n=>!n.parent);setL(root.id,0);
+  const maxL=Math.max(...Object.values(lvl));
+  const lC={},lI={};nodes.forEach(n=>{const l=lvl[n.id];lI[n.id]=lC[l]||0;lC[l]=(lC[l]||0)+1;});
+  const pos={};nodes.forEach(n=>{const l=lvl[n.id],cnt=lC[l],idx=lI[n.id];pos[n.id]={x:30+(idx+0.5)*((520-60)/cnt),y:30+l*((200-60)/maxL)};});
+  return pos;
 }
 
-// ─── TREE LAYOUT ──────────────────────────────────────────
-function layoutTree(nodes) {
-  // assign x positions by level
-  const byParent = {};
-  nodes.forEach(n=>{
-    const p = n.parent||'__root__';
-    if(!byParent[p]) byParent[p]=[];
-    byParent[p].push(n.id);
-  });
-  const levels = {};
-  const setLevel = (id, lvl)=>{
-    levels[id]=lvl;
-    (byParent[id]||[]).forEach(cid=>setLevel(cid,lvl+1));
-  };
-  const root = nodes.find(n=>!n.parent);
-  setLevel(root.id, 0);
-
-  const maxLvl = Math.max(...Object.values(levels));
-  // count nodes per level for x spacing
-  const lvlCount = {};
-  const lvlIdx   = {};
-  nodes.forEach(n=>{
-    const l=levels[n.id];
-    lvlIdx[n.id] = lvlCount[l]||0;
-    lvlCount[l]  = (lvlCount[l]||0)+1;
-  });
-
-  const W=520, H=200, PAD=30;
-  const positions={};
-  nodes.forEach(n=>{
-    const l=levels[n.id];
-    const cnt=lvlCount[l];
-    const idx=lvlIdx[n.id];
-    positions[n.id]={
-      x: PAD + (idx+0.5) * ((W-PAD*2)/cnt),
-      y: PAD + l * ((H-PAD*2)/maxLvl)
-    };
-  });
-  return {positions, levels};
-}
-
-function drawTree(canvasId, q, highlightPath, finalNode) {
-  const canvas=document.getElementById(canvasId);
-  if(!canvas) return;
+function drawTreeQ(cId,q,path,fin){
+  const canvas=document.getElementById(cId);if(!canvas)return;
   const dpr=window.devicePixelRatio||1;
   const rect=canvas.getBoundingClientRect();
-  const W=rect.width||520, H=rect.height||200;
-  // scale layout to actual canvas
-  const LW=520, LH=200;
-  const sx=W/LW, sy=H/LH;
-  canvas.width=W*dpr; canvas.height=H*dpr;
-  const ctx=canvas.getContext('2d');
-  ctx.scale(dpr,dpr);
-
-  const {positions}=layoutTree(q.nodes);
-
-  // draw edges
+  const W=rect.width||520,H=rect.height||200;
+  canvas.width=W*dpr;canvas.height=H*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const pos=layoutTree(q.nodes);
+  const sx=W/520,sy=H/200;
   q.nodes.forEach(n=>{
-    if(!n.parent) return;
-    const p=positions[n.parent], c=positions[n.id];
-    const onPath = highlightPath && highlightPath.includes(n.parent) && highlightPath.includes(n.id);
-    ctx.beginPath();
-    ctx.moveTo(p.x*sx, p.y*sy);
-    ctx.lineTo(c.x*sx, c.y*sy);
-    ctx.strokeStyle = onPath ? '#2c5fad' : '#d0d6e2';
-    ctx.lineWidth   = onPath ? 2.5 : 1.5;
-    ctx.stroke();
+    if(!n.parent)return;
+    const p=pos[n.parent],c=pos[n.id];
+    const onP=path&&path.includes(n.parent)&&path.includes(n.id);
+    ctx.beginPath();ctx.moveTo(p.x*sx,p.y*sy);ctx.lineTo(c.x*sx,c.y*sy);
+    ctx.strokeStyle=onP?'#2c5fad':'#d0d6e2';ctx.lineWidth=onP?2.5:1.5;ctx.stroke();
   });
-
-  // draw nodes
   q.nodes.forEach(n=>{
-    const pos=positions[n.id];
-    const x=pos.x*sx, y=pos.y*sy;
-    const isFinal  = finalNode===n.id;
-    const onPath   = highlightPath && highlightPath.includes(n.id);
-    const isRoot   = !n.parent;
-
-    let fill='#f0f3f8', stroke='#b0bbd0', sw=1.5, textColor='#3a4460';
-    if(onPath)  {fill='#dde8f8'; stroke='#2c5fad'; sw=2;}
-    if(isFinal) {fill='#2c5fad'; stroke='#1a4090'; sw=2.5; textColor='#fff';}
-
-    ctx.beginPath(); ctx.arc(x,y,18,0,Math.PI*2);
-    ctx.fillStyle=fill; ctx.fill();
-    ctx.strokeStyle=stroke; ctx.lineWidth=sw; ctx.stroke();
-
-    // node id
-    ctx.fillStyle=textColor; ctx.font='bold 12px Inter,sans-serif'; ctx.textAlign='center';
-    ctx.fillText(n.id, x, y-3);
-    // value
-    ctx.font='10px Inter,sans-serif';
-    ctx.fillStyle=isFinal?'rgba(255,255,255,0.85)':textColor;
-    ctx.fillText(n.val, x, y+10);
+    const p=pos[n.id],x=p.x*sx,y=p.y*sy;
+    const isFin=fin===n.id,onP=path&&path.includes(n.id);
+    let fill='#f0f3f8',stroke='#b0bbd0',sw=1.5,tc='#3a4460';
+    if(onP){fill='#dde8f8';stroke='#2c5fad';sw=2;}
+    if(isFin){fill='#2c5fad';stroke='#1a4090';sw=2.5;tc='#fff';}
+    ctx.beginPath();ctx.arc(x,y,18,0,Math.PI*2);
+    ctx.fillStyle=fill;ctx.fill();ctx.strokeStyle=stroke;ctx.lineWidth=sw;ctx.stroke();
+    ctx.fillStyle=tc;ctx.font='bold 12px Inter,sans-serif';ctx.textAlign='center';ctx.fillText(n.id,x,y-3);
+    ctx.font='10px Inter,sans-serif';ctx.fillStyle=isFin?'rgba(255,255,255,0.85)':tc;ctx.fillText(n.val,x,y+10);
   });
 }
 
-// compute Hill Climbing path on tree
-function hillClimbTree(nodes, q) {
-  const childMap={};
-  nodes.forEach(n=>{
-    if(n.parent){
-      if(!childMap[n.parent]) childMap[n.parent]=[];
-      childMap[n.parent].push(n.id);
-    }
+function drawLandscapeQ(cId,q,reveal){
+  const canvas=document.getElementById(cId);if(!canvas)return;
+  const dpr=window.devicePixelRatio||1;
+  const rect=canvas.getBoundingClientRect();
+  const W=rect.width||560,H=rect.height||190;
+  canvas.width=W*dpr;canvas.height=H*dpr;
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const n=q.pts.length,PL=40,PR=18,PT=36,PB=26;
+  const gW=W-PL-PR,gH=H-PT-PB;
+  const px=i=>PL+(i/(n-1))*gW,py=v=>PT+(1-v)*gH;
+  ctx.strokeStyle='#eaecf2';ctx.lineWidth=1;
+  [0,.25,.5,.75,1].forEach(g=>{ctx.beginPath();ctx.moveTo(PL,PT+g*gH);ctx.lineTo(PL+gW,PT+g*gH);ctx.stroke();});
+  ctx.beginPath();ctx.moveTo(px(0),py(q.pts[0]));
+  q.pts.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
+  ctx.lineTo(px(n-1),PT+gH);ctx.lineTo(px(0),PT+gH);ctx.closePath();
+  ctx.fillStyle='rgba(44,95,173,0.07)';ctx.fill();
+  ctx.beginPath();ctx.moveTo(px(0),py(q.pts[0]));
+  q.pts.forEach((v,i)=>ctx.lineTo(px(i),py(v)));
+  ctx.strokeStyle='#2c5fad';ctx.lineWidth=2.5;ctx.lineJoin='round';ctx.stroke();
+  ctx.fillStyle='#a0a8bc';ctx.font='10px Inter,sans-serif';
+  ctx.textAlign='left';ctx.fillText('Value ↑',2,PT-8);
+  ctx.textAlign='right';ctx.fillText('States →',W-PR+14,H-4);
+  q.pts.forEach((v,i)=>{
+    const x=px(i),y=py(v),isA=i===q.agent;
+    let r=4.5,fill='#dde3ee',strk=null,sw=0;
+    if(isA){r=9;fill='#2c5fad';strk='#fff';sw=2.5;}
+    ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fillStyle=fill;ctx.fill();
+    if(strk){ctx.strokeStyle=strk;ctx.lineWidth=sw;ctx.stroke();}
+    if(isA){ctx.textAlign='center';ctx.font='bold 10px Inter,sans-serif';ctx.fillStyle='#2c5fad';ctx.fillText('agent',x,y-r-5);}
+    if(reveal){ctx.textAlign='center';ctx.font='9px Inter,sans-serif';ctx.fillStyle='#8892aa';ctx.fillText(v.toFixed(2),x,y+r+11);}
   });
-  const valMap={};
-  nodes.forEach(n=>valMap[n.id]=n.val);
-  Object.keys(childMap).forEach(k=>childMap[k].sort());
-
-  const root=nodes.find(n=>!n.parent).id;
-  const path=[root];
-  let cur=root;
-  const minimize = q.minimize || false;
-  while(true){
-    const children=childMap[cur]||[];
-    const better = minimize
-      ? children.find(c=>valMap[c]<valMap[cur])
-      : children.find(c=>valMap[c]>valMap[cur]);
-    if(!better) break;
-    path.push(better);
-    cur=better;
-  }
-  return path;
 }
 
-// ─── OPTION CLICK ─────────────────────────────────────────
-function optionClick(idx) {
-  if(answered) return;
-  answered=true;
-  const q=Qs[currentQ];
-  const ok=idx===q.answer;
-  if(ok) score++;
-
+function optionClick(idx){
+  if(answered)return;answered=true;
+  const q=Qs[currentQ],ok=idx===q.answer;if(ok)score++;
   document.querySelectorAll('.q-opt').forEach((el,i)=>{
-    el.classList.add('disabled'); el.onclick=null;
-    if(i===idx&&ok)           el.classList.add('correct');
-    else if(i===idx)          el.classList.add('wrong');
-    else if(i===q.answer&&!ok) el.classList.add('correct');
+    el.classList.add('disabled');el.onclick=null;
+    if(i===idx&&ok)el.classList.add('correct');
+    else if(i===idx)el.classList.add('wrong');
+    else if(i===q.answer&&!ok)el.classList.add('correct');
   });
-
-  // redraw with reveal after answer
-  if(q.kind==='tree'){
-    const path = q.correctPath || hillClimbTree(q.nodes, q);
-    drawTree('lc', q, path, path[path.length-1]);
-  }
-  if(q.kind==='landscape'){
-    drawLandscape('lc', q, true);
-  }
-
+  if(q.kind==='tree'){const p=q.correctPath;drawTreeQ('lc',q,p,p[p.length-1]);}
+  if(q.kind==='landscape')drawLandscapeQ('lc',q,true);
   const fb=document.getElementById('feedback');
   fb.textContent=ok?'Correct.':'Not quite.';
   fb.className='feedback-bar '+(ok?'correct':'wrong');
@@ -870,49 +823,37 @@ function optionClick(idx) {
   document.getElementById('q-next').disabled=false;
 }
 
-// ─── RENDER ───────────────────────────────────────────────
-function renderQ() {
+function renderQ(){
   if(currentQ>=Qs.length){showResults();return;}
   answered=false;
   const q=Qs[currentQ];
   document.getElementById('progress-fill').style.width=(currentQ/Qs.length*100)+'%';
-  const letters=['A','B','C','D'];
-
-  const hasCanvas = q.kind==='tree' || q.kind==='landscape';
-  const badgeLabel = q.kind==='tree' ? 'State-Space Tree' : q.kind==='landscape' ? 'Read the Landscape' : 'Conceptual';
-  const canvasH = q.kind==='tree' ? '240px' : '190px';
-
-  const canvasSection = hasCanvas
-    ? `<canvas id="lc" style="height:${canvasH};margin-bottom:16px;border-radius:10px;border:1px solid var(--border);background:#f8f9fc;width:100%;display:block;"></canvas>` : '';
-
+  const L=['A','B','C','D'];
+  const hasC=q.kind==='tree'||q.kind==='landscape';
+  const badge=q.kind==='tree'?'State-Space Tree':q.kind==='landscape'?'Read the Landscape':'Conceptual';
+  const cH=q.kind==='tree'?'240px':'190px';
+  const cSec=hasC?`<canvas id="lc" style="height:${cH};margin-bottom:16px;border-radius:10px;border:1px solid var(--border);background:#f8f9fc;width:100%;display:block;"></canvas>`:'';
   document.getElementById('quiz-container').innerHTML=`
     <div class="q-wrap">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
         <span class="q-label">Question ${currentQ+1} / ${Qs.length}</span>
-        <span class="q-type-badge">${badgeLabel}</span>
+        <span class="q-type-badge">${badge}</span>
       </div>
-      ${canvasSection}
+      ${cSec}
       <div class="q-text">${q.text}</div>
       <div class="q-options">
-        ${q.opts.map((o,i)=>`
-          <button class="q-opt" onclick="optionClick(${i})">
-            <span class="q-opt-letter">${letters[i]}</span>${o}
-          </button>`).join('')}
+        ${q.opts.map((o,i)=>`<button class="q-opt" onclick="optionClick(${i})"><span class="q-opt-letter">${L[i]}</span>${o}</button>`).join('')}
       </div>
       <div id="feedback" class="feedback-bar"></div>
       <div id="q-explain" class="q-explain" style="display:none;"><strong>Explanation:</strong> ${q.explain}</div>
-      <button id="q-next" class="q-next" onclick="nextQ()" disabled>
-        ${currentQ<Qs.length-1?'Next Question →':'See Results'}
-      </button>
+      <button id="q-next" class="q-next" onclick="nextQ()" disabled>${currentQ<Qs.length-1?'Next Question →':'See Results'}</button>
     </div>`;
-
-  if(q.kind==='tree')      requestAnimationFrame(()=>drawTree('lc',q,null,null));
-  if(q.kind==='landscape') requestAnimationFrame(()=>drawLandscape('lc',q,false));
+  if(q.kind==='tree')requestAnimationFrame(()=>drawTreeQ('lc',q,null,null));
+  if(q.kind==='landscape')requestAnimationFrame(()=>drawLandscapeQ('lc',q,false));
 }
 
 function nextQ(){currentQ++;renderQ();}
 
-// ─── RESULTS ──────────────────────────────────────────────
 function showResults(){
   document.getElementById('progress-fill').style.width='100%';
   const pct=Math.round(score/Qs.length*100);
@@ -926,8 +867,7 @@ function showResults(){
       <div class="score-ring">
         <svg width="116" height="116" viewBox="0 0 120 120">
           <circle class="ring-bg" cx="60" cy="60" r="52"/>
-          <circle class="ring-fill" cx="60" cy="60" r="52"
-            stroke="${color}" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct/100)}"/>
+          <circle class="ring-fill" cx="60" cy="60" r="52" stroke="${color}" stroke-dasharray="${C}" stroke-dashoffset="${C*(1-pct/100)}"/>
         </svg>
         <div class="score-num" style="color:${color}">${pct}%</div>
       </div>
@@ -942,10 +882,7 @@ function showResults(){
     </div>`;
 }
 
-function restartQuiz(){
-  currentQ=0;score=0;answered=false;
-  document.getElementById('progress-fill').style.width='0%';
-  renderQ();
-}</script>
+function restartQuiz(){currentQ=0;score=0;answered=false;document.getElementById('progress-fill').style.width='0%';renderQ();}
+</script>
 </body>
 </html>
